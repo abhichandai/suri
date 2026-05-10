@@ -1,98 +1,125 @@
 "use client";
 import { useEffect, useState } from "react";
 
-/* ─── TYPES ─── */
 type Phase = {
-  month: string;
-  title: string;
-  tagline: string;
-  purpose: string;
-  activities: string[];
-  output: string;
-  budget?: string;
-  note?: string;
+  month: string; title: string; tagline: string; purpose: string;
+  activities: string[]; output: string; budget?: string; note?: string;
 };
 
-/* ─── DATA ─── */
+type Competitor = {
+  name: string; handle: string; followers: string; location: string;
+  summary: string; igUrl: string; threat: boolean;
+};
+
 const PHASES: Phase[] = [
   {
-    month: "Month 1",
-    title: "Foundation & Research",
+    month: "Month 1", title: "Foundation & Research",
     tagline: "Set the stage. Mine what already exists.",
     purpose: "Before we spend a dollar on ads, we make sure the infrastructure is solid and we understand who we're talking to — directly from your patients.",
     activities: [
-      "Full account audit & setup (Meta Business, Google, tracking)",
+      "Full account audit & access review (Meta Business, Google, CRM, booking system)",
+      "Referral system design — post-appointment email, Google review ask, monthly patient raffle",
       "ICA Interviews — conversations with 3–5 existing patients to understand language, pain points, and desires",
-      "Referral system build: post-appointment email → Google review ask → monthly patient raffle",
+      "Booking flow audit — ensure <5 min lead response path is ready before we drive traffic",
       "ChatGPT / AI SEO optimization on existing website content (one-time add-on)",
-      "Booking flow audit — ensure <5 min response path is ready before we drive traffic",
     ],
-    output: "A functioning referral system generating reviews and warm leads — plus a clear ICA hypothesis ready to test.",
+    output: "A functioning referral system in design, a clear ICA hypothesis, and access to every account we'll need. Infrastructure ready before we build on top of it.",
     note: "ICA Interviews are non-negotiable. Skipping this step is the single biggest reason niche-cracking projects fail.",
   },
   {
-    month: "Month 2",
-    title: "ICA Development & Infrastructure",
+    month: "Month 2", title: "ICA Development & Infrastructure",
     tagline: "Build the profile. Build the machine.",
-    purpose: "We synthesize everything from Month 1 into a data-backed Ideal Customer Profile, then build the ad infrastructure around it.",
+    purpose: "We synthesize everything from Month 1 into a data-backed Ideal Customer Profile, then build the ad infrastructure around it — offers, pages, tracking.",
     activities: [
-      "ICA document — synthesize interview data into a full written profile",
-      "Offer development — create 2–3 offers to test (e.g. downloadable guide, direct discovery call booking)",
+      "Referral system goes live — email sequence, raffle mechanics, winner announcements",
+      "ICA document — synthesize interview data into a full written profile with tested language",
+      "Offer development — create 2–3 offers to test (downloadable guide, direct discovery call booking)",
       "Meta Pixel + Conversion API setup and verification",
       "Landing pages built for each offer",
       "Cold audience build or Lookalike Audience if email list is available",
     ],
-    output: "A tested ICA profile, 2–3 offers ready to run, and a fully instrumented ad infrastructure.",
-    budget: "$500 ad spend — used to validate the ICA and warm up the pixel.",
+    output: "A data-backed ICA profile, 2–3 offers built and ready to test, fully instrumented Meta infrastructure, and a referral system actively generating reviews and warm leads.",
+    budget: "$500 ad spend — used to validate the ICA and warm the pixel.",
   },
   {
-    month: "Months 3–4",
-    title: "Creative Testing & Lead Ads",
+    month: "Months 3–4", title: "Creative Testing & Lead Ads",
     tagline: "Find what they click. Find what they sign up for.",
-    purpose: "Two rounds of structured testing to identify the winning creative and offer combination before we commit budget to scale.",
+    purpose: "Multiple structured rounds of testing to identify the winning creative and offer combination. We don't scale until we have proof of sign-up intent.",
     activities: [
       "Creative Test R1 — run 3–5 creatives against cold audience to see what they click",
       "Lead Ads R1 — winning creatives + offers on lead ads; high barrier, expensive CPL expected",
-      "Creative Test R2 — refine with real-world result images based on R1 data",
-      "Lead Ads R2 — refined audience + refined creatives; improve CPL and lead quality",
+      "Review R1 results — refine audience, creative, and offer based on data",
+      "Creative Test R2+ — additional rounds with real-world result images as needed",
+      "Lead Ads R2+ — refined targeting; improve CPL and lead quality each round",
       "Appointment setter protocol active — leads responded to within 5 minutes of signing up",
     ],
-    output: "A winning creative + offer combination with proof of sign-up intent. CPL data to inform scaling decisions.",
-    budget: "$1,000–$1,500 ad spend across both rounds.",
-    note: "The <5 min response to leads is mission-critical. If this isn't solved before ads go live, we solve it together — either through automation or an appointment setter add-on.",
+    output: "A winning creative + offer combination with proof of sign-up intent and CPL data to inform scaling decisions. Number of rounds depends on data — we don't stop until we have a winner.",
+    budget: "$1,000–$1,500 ad spend across testing rounds.",
+    note: "The <5 min response to new leads is mission-critical. If this isn't solved before ads go live, we solve it together — either through automation or an appointment setter add-on.",
   },
   {
-    month: "Months 5–6",
-    title: "Scale",
+    month: "Months 5–6", title: "Scale",
     tagline: "Double down on what works.",
-    purpose: "We now have a winning combination. The job shifts from testing to scaling — more spend, broader audiences, tighter optimization.",
+    purpose: "We have a winning combination. The job shifts from testing to scaling — more spend, broader audiences, tighter optimization. This is where the pipeline becomes predictable.",
     activities: [
-      "Run the 2 winning ad combos for a full month",
+      "Run winning ad combos for a full month with increased spend",
       "Weekly data review — CPL, booking rate, show rate, patient conversion",
       "Lookalike Audiences built from converted patient data",
       "Referral system layer 2 — patients generated by ads become new referral sources",
-      "Identify next optimization: new creative, new offer, new audience segment",
+      "Identify next optimization: new creative angle, new offer, new audience segment",
     ],
-    output: "A predictable, repeatable channel of new patients arriving at your clinic every week — built to run without you.",
-    note: "This is the infrastructure that pays for itself. Every dollar of ad spend has a known return. You become the engineer of your own growth.",
+    output: "A predictable, repeatable channel of new patients arriving at your clinic every week — built to run without you, and designed to compound over time.",
+    note: "This is the infrastructure that pays for itself. Every dollar of ad spend has a known return. The referral system and the pipeline reinforce each other.",
   },
 ];
 
-const COMPETITORS = [
-  { name: "Dr. Kapil Dev", followers: "807K", location: "India", note: "Hindi-language condition-specific Reels. Enormous — but India-only market.", threat: false },
-  { name: "Dr. Rajendra Goyal", followers: "481K", location: "India", note: "Hindi content, supplement sales via 1mg. Same story — massive reach, wrong geography.", threat: false },
-  { name: "Dr. Rattandeep Kaur", followers: "8.9K", location: "Mississauga, ON", note: "Rattan Homeo Clinic — Mississauga. Same city, same audience, active on Instagram. The local threat.", threat: true },
-  { name: "Melissa Kupsch", followers: "192K", location: "Australia", note: "English-language. Philosophy-led: quantum physics, movement-building, homeopathy film, academy. The ceiling — different angle, different audience.", threat: false },
+const COMPETITORS: Competitor[] = [
+  {
+    name: "Dr. Rattandeep Kaur",
+    handle: "@homeopathic_wonders",
+    followers: "8.9K",
+    location: "Mississauga, ON",
+    summary: "Senior Homeopath at Rattan Homeo Clinic — literally the same city. Active on Instagram with condition-specific content (eczema, vaccination side effects, supplements). Modest reach but a real local presence. The closest direct competitor.",
+    igUrl: "https://www.instagram.com/homeopathic_wonders/",
+    threat: true,
+  },
+  {
+    name: "Melissa Kupsch",
+    handle: "@thathomeopath",
+    followers: "192K",
+    location: "Australia",
+    summary: "The English-language ceiling. Philosophy-led content: quantum physics framing, myth-busting, homeopathy as a worldview. Built an academy, conference, and product ecosystem around the brand. A different angle — spiritual/philosophical vs. results-led — but the best proof that English-language homeopathy content can scale.",
+    igUrl: "https://www.instagram.com/thathomeopath/",
+    threat: false,
+  },
+  {
+    name: "Dr. Kapil Dev",
+    handle: "@dr_kapil_dev_",
+    followers: "807K",
+    location: "India",
+    summary: "Hindi-language condition-specific Reels. Enormous reach, proven model — but India-only market. Irrelevant geographically but proof that short-form video works for homeopaths at scale.",
+    igUrl: "https://www.instagram.com/dr_kapil_dev_/",
+    threat: false,
+  },
+  {
+    name: "Dr. Rajendra Goyal",
+    handle: "@dr.rajendragoyal",
+    followers: "481K",
+    location: "India",
+    summary: "Hindi content, supplement sales via 1mg. Same story as Kapil Dev — massive Hindi-language reach, wrong geography. Reference market only.",
+    igUrl: "https://www.instagram.com/dr.rajendragoyal/",
+    threat: false,
+  },
 ];
 
-/* ─── MAIN PAGE ─── */
 export default function Page() {
-  const [openPhase, setOpenPhase] = useState<number | null>(0);
+  const [activePhase, setActivePhase] = useState<number>(0);
+  const [openComp, setOpenComp] = useState<number | null>(null);
 
   useEffect(() => {
     const els = document.querySelectorAll(".fade-up");
     const obs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("visible"); }),
+      (e) => e.forEach((x) => { if (x.isIntersecting) x.target.classList.add("visible"); }),
       { threshold: 0.06 }
     );
     els.forEach((el) => obs.observe(el));
@@ -100,53 +127,28 @@ export default function Page() {
   }, []);
 
   return (
-    <main style={{ fontFamily: "var(--font-ui)", fontWeight: 300 }}>
+    <main style={{ fontFamily:"var(--font-ui)", fontWeight:300 }}>
 
       {/* ── HERO ── */}
       <section style={{
-        minHeight: "100vh",
-        background: "var(--forest)",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        padding: "128px 40px",
-        position: "relative",
-        overflow: "hidden",
+        minHeight:"100vh", background:"var(--forest)",
+        display:"flex", flexDirection:"column", justifyContent:"center",
+        padding:"128px 40px", position:"relative", overflow:"hidden",
       }}>
-        {/* Decorative rings */}
         <div style={{ position:"absolute", top:"-80px", right:"-100px", width:"500px", height:"500px", borderRadius:"50%", border:"1px solid rgba(184,150,46,0.10)", pointerEvents:"none" }} />
-        <div style={{ position:"absolute", top:"-40px", right:"-60px", width:"320px", height:"320px", borderRadius:"50%", border:"1px solid rgba(184,150,46,0.07)", pointerEvents:"none" }} />
         <div style={{ position:"absolute", bottom:"-60px", left:"-80px", width:"360px", height:"360px", borderRadius:"50%", border:"1px solid rgba(184,150,46,0.06)", pointerEvents:"none" }} />
 
         <div style={{ maxWidth:"860px", margin:"0 auto", width:"100%", position:"relative", zIndex:1 }}>
           <EyebrowLabel light>Prepared exclusively for Hermeet Suri</EyebrowLabel>
-
-          <h1 style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(3.2rem, 5.5vw, 5rem)",
-            fontWeight: 300,
-            lineHeight: 1.1,
-            letterSpacing: "-0.01em",
-            color: "var(--bg)",
-            marginBottom: "24px",
-            maxWidth: "800px",
-          }}>
+          <h1 style={{ fontFamily:"var(--font-display)", fontSize:"clamp(3.2rem,5.5vw,5rem)", fontWeight:300, lineHeight:1.1, letterSpacing:"-0.01em", color:"var(--bg)", marginBottom:"24px", maxWidth:"800px" }}>
             A growth roadmap for{" "}
-            <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>
-              Homeopathic Plus Centre
-            </em>
+            <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>Homeopathic Plus Centre</em>
           </h1>
-
           <p style={{ fontSize:"1.125rem", fontWeight:300, color:"rgba(240,237,230,0.70)", maxWidth:"520px", marginBottom:"56px", lineHeight:1.75 }}>
             Engineering a predictable channel of new patients — from 8 to 14 per week — through data-backed infrastructure, not guesswork.
           </p>
-
           <div style={{ display:"flex", gap:"40px", flexWrap:"wrap", marginBottom:"64px" }}>
-            {[
-              ["8 → 14","patients / week"],
-              ["Sept 1, 2026","target date"],
-              ["4–6 months","to build it right"],
-            ].map(([n, label], i, arr) => (
+            {[["8 → 14","patients / week"],["Sept 1, 2026","target date"],["4–6 months","to build it right"]].map(([n, label], i, arr) => (
               <div key={n} style={{ display:"flex", gap:"40px", alignItems:"center" }}>
                 <div>
                   <div style={{ fontFamily:"var(--font-display)", fontSize:"2rem", fontWeight:300, color:"var(--gold-dark)", lineHeight:1 }}>{n}</div>
@@ -156,14 +158,8 @@ export default function Page() {
               </div>
             ))}
           </div>
-
           <div style={{ paddingTop:"32px", borderTop:"1px solid rgba(240,237,230,0.10)", display:"flex", alignItems:"center", gap:"14px" }}>
-            <div style={{
-              width:"40px", height:"40px", borderRadius:"50%",
-              background:"var(--gold)", display:"flex", alignItems:"center", justifyContent:"center",
-              fontFamily:"var(--font-display)", fontSize:"15px", fontWeight:400,
-              color:"var(--forest)", flexShrink:0,
-            }}>AC</div>
+            <div style={{ width:"40px", height:"40px", borderRadius:"50%", background:"var(--gold)", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"var(--font-display)", fontSize:"15px", fontWeight:400, color:"var(--forest)", flexShrink:0 }}>AC</div>
             <div>
               <div style={{ fontSize:"0.875rem", fontWeight:500, color:"rgba(240,237,230,0.85)" }}>Abhi Chand</div>
               <div style={{ fontSize:"0.75rem", color:"rgba(240,237,230,0.40)", letterSpacing:"0.02em" }}>Digital Growth Strategist · nava45.com</div>
@@ -179,24 +175,15 @@ export default function Page() {
           <h2 style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,3.5vw,2.8rem)", fontWeight:300, lineHeight:1.2, letterSpacing:"-0.01em", marginBottom:"20px" }}>
             From 8 to <em style={{ fontStyle:"italic", color:"var(--gold)" }}>14 patients per week</em>
           </h2>
-          <p style={{ fontSize:"1rem", color:"var(--muted)", maxWidth:"560px", marginBottom:"64px", lineHeight:1.75 }}>
-            Your 4DX scoreboard shows you hit 13 in the week of April 26th. Something worked. We&apos;re going to find out exactly what — and build a system that makes it repeatable, every week, by September 1st 2026.
+          <p style={{ fontSize:"1rem", color:"var(--muted)", maxWidth:"560px", marginBottom:"56px", lineHeight:1.75 }}>
+            Your 4DX scoreboard shows you hit 13 in the week of April 26th. Something worked. We&apos;re going to find out exactly what — then build a system that makes it repeatable, every week, by September 1st 2026.
           </p>
-
-          {/* Goal graphic */}
-          <div style={{
-            background:"var(--bg-alt)",
-            border:"1px solid var(--border)",
-            borderRadius:"16px",
-            padding:"48px 40px",
-            boxShadow:"var(--shadow-sm)",
-            marginBottom:"40px",
-          }}>
+          <div style={{ background:"var(--bg-alt)", border:"1px solid var(--border)", borderRadius:"16px", padding:"48px 40px", boxShadow:"var(--shadow-sm)", marginBottom:"32px" }}>
             <div style={{ display:"grid", gridTemplateColumns:"1fr auto 1fr", alignItems:"center", gap:"24px", marginBottom:"48px" }}>
               <div style={{ textAlign:"center" }}>
                 <div style={{ fontSize:"0.75rem", fontWeight:400, letterSpacing:"0.08em", textTransform:"uppercase", color:"var(--muted)", marginBottom:"12px" }}>Where you are</div>
                 <div style={{ fontFamily:"var(--font-display)", fontSize:"clamp(4rem,8vw,6rem)", fontWeight:300, color:"var(--text)", lineHeight:1 }}>8</div>
-                <div style={{ fontSize:"0.875rem", color:"var(--muted)", marginTop:"8px" }}>patients / week</div>
+                <div style={{ fontSize:"0.875rem", color:"var(--muted)", marginTop:"8px" }}>new patients / week</div>
               </div>
               <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"8px" }}>
                 <svg width="64" height="24" viewBox="0 0 64 24" fill="none">
@@ -208,46 +195,24 @@ export default function Page() {
               <div style={{ textAlign:"center" }}>
                 <div style={{ fontSize:"0.75rem", fontWeight:400, letterSpacing:"0.08em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"12px" }}>Where we&apos;re going</div>
                 <div style={{ fontFamily:"var(--font-display)", fontSize:"clamp(4rem,8vw,6rem)", fontWeight:300, color:"var(--gold)", lineHeight:1 }}>14</div>
-                <div style={{ fontSize:"0.875rem", color:"var(--muted)", marginTop:"8px" }}>patients / week · by Sept 1, 2026</div>
+                <div style={{ fontSize:"0.875rem", color:"var(--muted)", marginTop:"8px" }}>new patients / week · by Sept 1, 2026</div>
               </div>
             </div>
-
-            {/* Progress bar */}
-            <div>
-              <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"10px" }}>
-                <span style={{ fontSize:"0.75rem", color:"var(--muted)" }}>Apr 2026</span>
-                <span style={{ fontSize:"0.75rem", color:"var(--muted)" }}>Sept 2026</span>
-              </div>
-              <div style={{ height:"6px", background:"var(--border)", borderRadius:"100px", overflow:"hidden" }}>
-                <div style={{ height:"100%", width:"8%", background:"var(--gold)", borderRadius:"100px" }} />
-              </div>
-              <div style={{ display:"flex", gap:"24px", marginTop:"20px", flexWrap:"wrap" }}>
-                {[
-                  { week:"Apr 5", n:8, note:"baseline" },
-                  { week:"Apr 12", n:8, note:"" },
-                  { week:"Apr 19", n:9, note:"" },
-                  { week:"Apr 26", n:13, note:"peak" },
-                ].map(({ week, n, note }) => (
-                  <div key={week} style={{ textAlign:"center" }}>
-                    <div style={{
-                      width:"36px", height:"36px", borderRadius:"50%",
-                      background: n === 13 ? "var(--gold)" : n > 8 ? "rgba(184,150,46,0.2)" : "var(--border)",
-                      display:"flex", alignItems:"center", justifyContent:"center",
-                      fontFamily:"var(--font-display)", fontSize:"1rem", fontWeight:300,
-                      color: n === 13 ? "var(--bg)" : "var(--text)",
-                      margin:"0 auto 6px",
-                    }}>{n}</div>
-                    <div style={{ fontSize:"0.7rem", color:"var(--muted)" }}>{week}</div>
-                    {note && <div style={{ fontSize:"0.65rem", color:"var(--gold)", fontWeight:400, textTransform:"uppercase", letterSpacing:"0.06em" }}>{note}</div>}
-                  </div>
-                ))}
-                <div style={{ display:"flex", alignItems:"center", color:"var(--muted)", fontSize:"0.875rem", paddingLeft:"8px" }}>→ we find out what worked and systematize it</div>
+            <div style={{ display:"flex", gap:"20px", alignItems:"center", flexWrap:"wrap" }}>
+              {[{week:"Apr 5",n:8,note:"baseline"},{week:"Apr 12",n:8,note:""},{week:"Apr 19",n:9,note:""},{week:"Apr 26",n:13,note:"peak"}].map(({week,n,note}) => (
+                <div key={week} style={{ textAlign:"center" }}>
+                  <div style={{ width:"40px", height:"40px", borderRadius:"50%", background:n===13?"var(--gold)":n>8?"rgba(184,150,46,0.20)":"var(--border)", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"var(--font-display)", fontSize:"1.1rem", fontWeight:300, color:n===13?"var(--bg)":"var(--text)", margin:"0 auto 6px" }}>{n}</div>
+                  <div style={{ fontSize:"0.7rem", color:"var(--muted)" }}>{week}</div>
+                  {note && <div style={{ fontSize:"0.65rem", color:"var(--gold)", fontWeight:400, textTransform:"uppercase", letterSpacing:"0.06em" }}>{note}</div>}
+                </div>
+              ))}
+              <div style={{ fontSize:"0.875rem", color:"var(--muted)", paddingLeft:"8px", flex:1 }}>
+                → we find out what drove the Apr 26 spike and turn it into a system
               </div>
             </div>
           </div>
-
           <div style={{ background:"var(--forest-light)", borderLeft:"3px solid var(--forest-mid)", borderRadius:"0 8px 8px 0", padding:"18px 22px", fontSize:"0.875rem", color:"var(--forest)", lineHeight:1.65 }}>
-            <strong style={{ fontWeight:500 }}>What we&apos;re building:</strong> A predictable digital infrastructure that generates new patient inquiries every week — independent of referrals, word of mouth, or how many Google reviews you collect. You become the engineer of your own growth.
+            <strong style={{ fontWeight:500 }}>Two things being built simultaneously:</strong> A paid digital pipeline that attracts new patients predictably — and a referral system that operationalizes word-of-mouth so you never have to ask manually again.
           </div>
         </div>
       </section>
@@ -259,60 +224,34 @@ export default function Page() {
           <h2 style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,3.5vw,2.8rem)", fontWeight:300, lineHeight:1.2, letterSpacing:"-0.01em", marginBottom:"16px" }}>
             Four phases. <em style={{ fontStyle:"italic", color:"var(--gold)" }}>One compounding system.</em>
           </h2>
-          <p style={{ fontSize:"1rem", color:"var(--muted)", maxWidth:"560px", marginBottom:"48px", lineHeight:1.75 }}>
+          <p style={{ fontSize:"1rem", color:"var(--muted)", maxWidth:"560px", marginBottom:"40px", lineHeight:1.75 }}>
             Click any phase to see exactly what happens, why, and what you&apos;ll have at the end of it. Nothing is skipped. Every step exists for a reason.
           </p>
 
-          {/* Phase cards row */}
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"12px", marginBottom:"0" }}>
+          {/* Tab bar */}
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", background:"var(--bg)", border:"1px solid var(--border)", borderRadius:"12px 12px 0 0", overflow:"hidden" }}>
             {PHASES.map((phase, i) => (
-              <button
-                key={i}
-                onClick={() => setOpenPhase(openPhase === i ? null : i)}
-                style={{
-                  border: openPhase === i ? "1.5px solid rgba(184,150,46,0.50)" : "1px solid rgba(184,150,46,0.15)",
-                  borderBottom: openPhase === i ? "1.5px solid var(--bg-alt)" : "1px solid rgba(184,150,46,0.15)",
-                  borderRadius: openPhase === i ? "12px 12px 0 0" : "12px",
-                  padding: "20px",
-                  background: openPhase === i ? "var(--bg)" : "rgba(255,255,255,0.80)",
-                  cursor: "pointer",
-                  textAlign: "left",
-                  boxShadow: openPhase === i ? "var(--shadow-md)" : "var(--shadow-sm)",
-                  transition: "all 0.2s ease",
-                  position: "relative",
-                  zIndex: openPhase === i ? 2 : 1,
-                  marginBottom: openPhase === i ? "-1px" : "0",
-                }}
-              >
-                <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"10px" }}>{phase.month}</div>
-                <div style={{ fontFamily:"var(--font-display)", fontSize:"1.1rem", fontWeight:300, color:"var(--text)", lineHeight:1.3, marginBottom:"8px" }}>{phase.title}</div>
-                <div style={{ fontSize:"0.8rem", color:"var(--muted)", lineHeight:1.4 }}>{phase.tagline}</div>
-                <div style={{ marginTop:"12px", fontSize:"0.75rem", color: openPhase === i ? "var(--gold)" : "var(--muted)", fontWeight:400 }}>
-                  {openPhase === i ? "▲ collapse" : "▼ expand"}
-                </div>
+              <button key={i} onClick={() => setActivePhase(i)} style={{
+                padding:"20px 16px", border:"none", borderBottom: activePhase === i ? "2px solid var(--gold)" : "2px solid transparent",
+                borderRight: i < PHASES.length - 1 ? "1px solid var(--border)" : "none",
+                background: activePhase === i ? "rgba(184,150,46,0.04)" : "transparent",
+                cursor:"pointer", textAlign:"left", transition:"all 0.15s ease",
+              }}>
+                <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color: activePhase === i ? "var(--gold)" : "var(--muted)", marginBottom:"8px" }}>{phase.month}</div>
+                <div style={{ fontFamily:"var(--font-display)", fontSize:"1rem", fontWeight:300, color: activePhase === i ? "var(--text)" : "var(--muted)", lineHeight:1.3, marginBottom:"4px" }}>{phase.title}</div>
+                <div style={{ fontSize:"0.75rem", color:"var(--muted)", lineHeight:1.4, display: activePhase === i ? "block" : "none" }}>{phase.tagline}</div>
               </button>
             ))}
           </div>
 
-          {/* Expanded panel */}
-          {openPhase !== null && (
-            <div style={{
-              background:"var(--bg)",
-              border:"1.5px solid rgba(184,150,46,0.50)",
-              borderTop:"none",
-              borderRadius:"0 0 12px 12px",
-              padding:"32px",
-              boxShadow:"var(--shadow-md)",
-              position:"relative",
-              zIndex:1,
-            }}>
-              <PhasePanel phase={PHASES[openPhase]} />
-            </div>
-          )}
+          {/* Panel */}
+          <div style={{ background:"var(--bg)", border:"1px solid var(--border)", borderTop:"none", borderRadius:"0 0 12px 12px", padding:"36px", boxShadow:"var(--shadow-sm)" }}>
+            <PhasePanel phase={PHASES[activePhase]} />
+          </div>
         </div>
       </section>
 
-      {/* ── COMPETITIVE LANDSCAPE ── */}
+      {/* ── COMPETITIVE ── */}
       <section className="fade-up" style={{ background:"var(--bg)", padding:"96px 40px" }}>
         <div style={{ maxWidth:"860px", margin:"0 auto" }}>
           <EyebrowLabel>The landscape</EyebrowLabel>
@@ -320,32 +259,38 @@ export default function Page() {
             Who else is in the <em style={{ fontStyle:"italic", color:"var(--gold)" }}>room</em>
           </h2>
           <p style={{ fontSize:"1rem", color:"var(--muted)", maxWidth:"560px", marginBottom:"40px", lineHeight:1.75 }}>
-            One local competitor in Mississauga. One who shows what the ceiling looks like. Two who prove the model works — just not in your market.
+            One local competitor. One who shows the ceiling. Two who prove the model works — just not in your market. Click any card to learn more.
           </p>
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"14px" }}>
-            {COMPETITORS.map((c) => (
-              <div key={c.name} style={{
-                border: c.threat ? "1.5px solid rgba(184,150,46,0.40)" : "1px solid rgba(184,150,46,0.15)",
-                borderRadius:"12px",
-                padding:"24px",
-                background: c.threat ? "rgba(184,150,46,0.04)" : "rgba(255,255,255,0.80)",
-                boxShadow:"var(--shadow-sm)",
-                transition:"box-shadow 0.2s, transform 0.2s",
-              }}>
-                {c.threat && (
-                  <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color:"var(--gold)", background:"rgba(184,150,46,0.10)", padding:"3px 10px", borderRadius:"100px", display:"inline-block", marginBottom:"12px" }}>
-                    Local competitor
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px", marginBottom:"20px" }}>
+            {COMPETITORS.map((c, i) => (
+              <div key={c.name}>
+                <button onClick={() => setOpenComp(openComp === i ? null : i)} style={{
+                  width:"100%", textAlign:"left", cursor:"pointer",
+                  border: c.threat ? "1.5px solid rgba(184,150,46,0.40)" : "1px solid rgba(184,150,46,0.15)",
+                  borderBottom: openComp === i ? (c.threat ? "1.5px solid transparent" : "1px solid transparent") : undefined,
+                  borderRadius: openComp === i ? "12px 12px 0 0" : "12px",
+                  padding:"24px", background: openComp === i ? "rgba(184,150,46,0.03)" : c.threat ? "rgba(184,150,46,0.03)" : "rgba(255,255,255,0.80)",
+                  boxShadow:"var(--shadow-sm)", transition:"all 0.15s ease",
+                }}>
+                  {c.threat && <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color:"var(--gold)", background:"rgba(184,150,46,0.10)", padding:"3px 10px", borderRadius:"100px", display:"inline-block", marginBottom:"10px" }}>Local competitor</div>}
+                  <div style={{ fontWeight:500, fontSize:"0.95rem", color:"var(--text)", marginBottom:"3px" }}>{c.name}</div>
+                  <div style={{ fontSize:"0.75rem", color:"var(--muted)", marginBottom:"10px" }}>{c.location}</div>
+                  <div style={{ fontFamily:"var(--font-display)", fontSize:"2rem", fontWeight:300, color: c.threat ? "var(--gold)" : "var(--forest-mid)", lineHeight:1, marginBottom:"8px" }}>{c.followers}</div>
+                  <div style={{ fontSize:"0.75rem", color:"var(--gold)", fontWeight:400 }}>{openComp === i ? "▲ less" : "▼ more"}</div>
+                </button>
+                {openComp === i && (
+                  <div style={{ border: c.threat ? "1.5px solid rgba(184,150,46,0.40)" : "1px solid rgba(184,150,46,0.15)", borderTop:"none", borderRadius:"0 0 12px 12px", padding:"20px 24px", background:"var(--bg-alt)", boxShadow:"var(--shadow-sm)" }}>
+                    <div style={{ fontSize:"0.875rem", color:"var(--text)", lineHeight:1.7, marginBottom:"14px" }}>{c.summary}</div>
+                    <a href={c.igUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize:"0.8rem", color:"var(--gold)", fontWeight:400, letterSpacing:"0.03em", textDecoration:"none", display:"inline-flex", alignItems:"center", gap:"6px" }}>
+                      {c.handle} → view on Instagram
+                    </a>
                   </div>
                 )}
-                <div style={{ fontWeight:500, fontSize:"0.95rem", color:"var(--text)", marginBottom:"4px" }}>{c.name}</div>
-                <div style={{ fontSize:"0.75rem", color:"var(--muted)", marginBottom:"10px" }}>{c.location}</div>
-                <div style={{ fontFamily:"var(--font-display)", fontSize:"2rem", fontWeight:300, color: c.threat ? "var(--gold)" : "var(--forest-mid)", marginBottom:"10px", lineHeight:1 }}>{c.followers}</div>
-                <div style={{ fontSize:"0.875rem", color:"var(--muted)", lineHeight:1.55 }}>{c.note}</div>
               </div>
             ))}
           </div>
-          <div style={{ marginTop:"20px", background:"#FDF3E3", border:"1px solid rgba(184,150,46,0.25)", borderRadius:"8px", padding:"18px 22px", fontSize:"0.875rem", color:"var(--text)", lineHeight:1.65 }}>
-            <strong style={{ fontWeight:500 }}>The gap nobody has claimed:</strong> English-language homeopathy content and paid acquisition built specifically for the Indian diaspora in North America. Results-led, practical, case-based. These families already believe in homeopathy — they just need to find you first.
+          <div style={{ background:"#FDF3E3", border:"1px solid rgba(184,150,46,0.25)", borderRadius:"8px", padding:"18px 22px", fontSize:"0.875rem", color:"var(--text)", lineHeight:1.65 }}>
+            <strong style={{ fontWeight:500 }}>The gap nobody has claimed:</strong> English-language homeopathy content and paid acquisition built specifically for the Indian diaspora in North America. These families already believe in homeopathy — they just need to find you first.
           </div>
         </div>
       </section>
@@ -358,89 +303,78 @@ export default function Page() {
             What it costs to build <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>something that lasts</em>
           </h2>
           <p style={{ fontSize:"1rem", color:"rgba(240,237,230,0.60)", maxWidth:"560px", marginBottom:"48px", lineHeight:1.75 }}>
-            This isn&apos;t a social media management retainer. It&apos;s the engineering of a patient acquisition pipeline — the same process that generated $14.5M in pipeline for luxury yachts.
+            The same process that generated $14.5M in pipeline for luxury yachts — applied to your patient acquisition problem. Two ways to engage.
           </p>
 
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"16px", marginBottom:"24px" }}>
-            {/* Main retainer */}
-            <div style={{
-              border:"1.5px solid var(--gold-dark)",
-              borderRadius:"16px",
-              padding:"32px",
-              background:"rgba(184,150,46,0.06)",
-              gridColumn:"1 / -1",
-            }}>
-              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", flexWrap:"wrap", gap:"16px" }}>
-                <div>
-                  <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold-dark)", marginBottom:"10px" }}>Core retainer</div>
-                  <div style={{ fontFamily:"var(--font-display)", fontSize:"1.5rem", fontWeight:300, color:"var(--bg)", marginBottom:"6px", lineHeight:1.2 }}>Full-Service Growth Partnership</div>
-                  <div style={{ fontSize:"0.875rem", color:"rgba(240,237,230,0.50)", lineHeight:1.5, maxWidth:"440px" }}>
-                    Account setup, ICA development, referral system, ad infrastructure, creative testing, lead generation, optimization, and reporting.
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"16px", marginBottom:"20px" }}>
+            {/* Option A */}
+            <div style={{ border:"1.5px solid var(--gold-dark)", borderRadius:"16px", padding:"28px", background:"rgba(184,150,46,0.06)" }}>
+              <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold-dark)", marginBottom:"10px" }}>Option A · Full partnership</div>
+              <div style={{ fontFamily:"var(--font-display)", fontSize:"1.4rem", fontWeight:300, color:"var(--bg)", marginBottom:"8px", lineHeight:1.2 }}>Pipeline + Referral System</div>
+              <div style={{ fontSize:"0.875rem", color:"rgba(240,237,230,0.50)", lineHeight:1.55, marginBottom:"24px" }}>The full plan — ICA development, referral infrastructure, paid acquisition pipeline, creative testing, and scale.</div>
+              <div style={{ fontFamily:"var(--font-display)", fontSize:"2.8rem", fontWeight:300, color:"var(--gold-dark)", lineHeight:1 }}>$2,500</div>
+              <div style={{ fontSize:"0.75rem", color:"rgba(240,237,230,0.40)", marginTop:"4px", marginBottom:"24px" }}>per month · 4–6 month minimum</div>
+              <div style={{ height:"1px", background:"rgba(240,237,230,0.10)", marginBottom:"20px" }} />
+              <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
+                {["ICA interviews + profile development","Referral system (email sequence, raffle, review ask)","Meta ad infrastructure + Pixel setup","Landing pages for each offer tested","Multiple creative testing rounds","Lead Ads campaigns (R1, R2+, scale)","Monthly reporting + weekly data review","90-day check-in with full performance review"].map(f => (
+                  <div key={f} style={{ display:"flex", gap:"10px", fontSize:"0.8rem", color:"rgba(240,237,230,0.65)", lineHeight:1.4 }}>
+                    <span style={{ color:"var(--gold-dark)", flexShrink:0 }}>✓</span>{f}
                   </div>
-                </div>
-                <div style={{ textAlign:"right", flexShrink:0 }}>
-                  <div style={{ fontFamily:"var(--font-display)", fontSize:"2.8rem", fontWeight:300, color:"var(--gold-dark)", lineHeight:1 }}>$2,500</div>
-                  <div style={{ fontSize:"0.75rem", color:"rgba(240,237,230,0.40)", marginTop:"4px" }}>per month · 4–6 month minimum</div>
-                </div>
-              </div>
-              <div style={{ marginTop:"24px", paddingTop:"20px", borderTop:"1px solid rgba(240,237,230,0.10)" }}>
-                <div style={{ fontSize:"0.75rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color:"rgba(240,237,230,0.40)", marginBottom:"12px" }}>Includes</div>
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px" }}>
-                  {[
-                    "ICA interviews + profile development",
-                    "Referral system (email, raffle, review ask)",
-                    "Meta ad infrastructure + Pixel setup",
-                    "Landing pages for each offer tested",
-                    "Creative testing rounds (R1 + R2)",
-                    "Lead Ads campaigns (R1 + R2 + scale)",
-                    "Monthly reporting + weekly data review",
-                    "90-day check-in with full performance review",
-                  ].map(f => (
-                    <div key={f} style={{ display:"flex", gap:"10px", fontSize:"0.875rem", color:"rgba(240,237,230,0.65)", lineHeight:1.4 }}>
-                      <span style={{ color:"var(--gold-dark)", flexShrink:0 }}>✓</span>{f}
-                    </div>
-                  ))}
-                </div>
+                ))}
               </div>
             </div>
 
-            {/* Ad budget */}
+            {/* Option B */}
+            <div style={{ border:"1px solid rgba(240,237,230,0.15)", borderRadius:"16px", padding:"28px", background:"rgba(255,255,255,0.04)" }}>
+              <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"rgba(240,237,230,0.45)", marginBottom:"10px" }}>Option B · Foundation sprint</div>
+              <div style={{ fontFamily:"var(--font-display)", fontSize:"1.4rem", fontWeight:300, color:"var(--bg)", marginBottom:"8px", lineHeight:1.2 }}>Referral Foundation</div>
+              <div style={{ fontSize:"0.875rem", color:"rgba(240,237,230,0.50)", lineHeight:1.55, marginBottom:"24px" }}>A lower-commitment starting point. We build the referral system and ICA profile — then decide together whether to continue with the full pipeline.</div>
+              <div style={{ fontFamily:"var(--font-display)", fontSize:"2.8rem", fontWeight:300, color:"var(--bg)", lineHeight:1 }}>$2,000</div>
+              <div style={{ fontSize:"0.75rem", color:"rgba(240,237,230,0.40)", marginTop:"4px", marginBottom:"24px" }}>per month · 3-month sprint</div>
+              <div style={{ height:"1px", background:"rgba(240,237,240,0.10)", marginBottom:"20px" }} />
+              <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
+                {["ICA interviews + profile development","Referral system design + launch","Account audit + access review","Booking flow optimization","ChatGPT / AI SEO optimization (add-on available)","Decision point at month 3: continue with full pipeline?"].map(f => (
+                  <div key={f} style={{ display:"flex", gap:"10px", fontSize:"0.8rem", color:"rgba(240,237,230,0.55)", lineHeight:1.4 }}>
+                    <span style={{ color:"rgba(240,237,230,0.30)", flexShrink:0 }}>✓</span>{f}
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop:"16px", padding:"12px 14px", background:"rgba(240,237,230,0.04)", borderRadius:"8px", fontSize:"0.75rem", color:"rgba(240,237,230,0.35)", lineHeight:1.5 }}>
+                No ad budget required in this sprint. Graduate to Option A when you&apos;re ready.
+              </div>
+            </div>
+          </div>
+
+          {/* Ad budget + add-ons */}
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"16px", marginBottom:"20px" }}>
             <div style={{ border:"1px solid rgba(240,237,230,0.12)", borderRadius:"12px", padding:"24px", background:"rgba(255,255,255,0.04)" }}>
-              <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"rgba(240,237,230,0.40)", marginBottom:"10px" }}>Ad budget — separate</div>
-              <div style={{ fontFamily:"var(--font-display)", fontSize:"1.5rem", fontWeight:300, color:"var(--bg)", marginBottom:"16px" }}>Media Spend</div>
+              <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"rgba(240,237,230,0.40)", marginBottom:"10px" }}>Ad budget — separate from retainer</div>
               <div style={{ display:"flex", flexDirection:"column", gap:"10px" }}>
                 <div style={{ display:"flex", justifyContent:"space-between", fontSize:"0.875rem", color:"rgba(240,237,230,0.60)" }}>
-                  <span>Month 1–2 (ICA validation)</span>
-                  <span style={{ color:"var(--gold-dark)" }}>$500</span>
+                  <span>Month 2 (ICA validation)</span><span style={{ color:"var(--gold-dark)" }}>$500</span>
                 </div>
                 <div style={{ display:"flex", justifyContent:"space-between", fontSize:"0.875rem", color:"rgba(240,237,230,0.60)" }}>
-                  <span>Months 3–4 (creative + lead ad testing)</span>
-                  <span style={{ color:"var(--gold-dark)" }}>$1,000–$1,500</span>
+                  <span>Months 3–4 (creative + lead ad testing)</span><span style={{ color:"var(--gold-dark)" }}>$1,000–$1,500</span>
                 </div>
                 <div style={{ height:"1px", background:"rgba(240,237,230,0.08)" }} />
                 <div style={{ display:"flex", justifyContent:"space-between", fontSize:"0.875rem", color:"rgba(240,237,230,0.75)", fontWeight:500 }}>
-                  <span>Total media over 4 months</span>
-                  <span style={{ color:"var(--gold-dark)" }}>~$1,500–$2,000</span>
+                  <span>Total over 4 months</span><span style={{ color:"var(--gold-dark)" }}>~$1,500–$2,000</span>
                 </div>
               </div>
-              <div style={{ marginTop:"14px", fontSize:"0.75rem", color:"rgba(240,237,230,0.35)", lineHeight:1.5 }}>
-                Paid directly to Meta. Not included in the retainer. Referral revenue from Month 1 is designed to fund this.
-              </div>
+              <div style={{ marginTop:"12px", fontSize:"0.75rem", color:"rgba(240,237,230,0.30)", lineHeight:1.5 }}>Paid directly to Meta. Referral revenue from Month 1 is designed to fund this.</div>
             </div>
-
-            {/* Add-ons */}
             <div style={{ border:"1px solid rgba(240,237,230,0.12)", borderRadius:"12px", padding:"24px", background:"rgba(255,255,255,0.04)" }}>
-              <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"rgba(240,237,230,0.40)", marginBottom:"10px" }}>Optional add-ons</div>
+              <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"rgba(240,237,230,0.40)", marginBottom:"14px" }}>Optional add-ons</div>
               <div style={{ display:"flex", flexDirection:"column", gap:"14px" }}>
                 <div>
                   <div style={{ fontSize:"0.875rem", fontWeight:500, color:"rgba(240,237,230,0.80)", marginBottom:"3px" }}>ChatGPT / AI Search Optimization</div>
-                  <div style={{ fontSize:"0.8rem", color:"rgba(240,237,230,0.45)", lineHeight:1.5, marginBottom:"4px" }}>Restructure existing website content + FAQ schema markup for AI citation visibility</div>
-                  <div style={{ fontSize:"0.875rem", color:"var(--gold-dark)" }}>$500 one-time + small monthly maintenance</div>
+                  <div style={{ fontSize:"0.8rem", color:"rgba(240,237,230,0.40)", lineHeight:1.5, marginBottom:"4px" }}>Restructure website content + FAQ schema for AI citation visibility</div>
+                  <div style={{ fontSize:"0.875rem", color:"var(--gold-dark)" }}>$500 one-time</div>
                 </div>
                 <div style={{ height:"1px", background:"rgba(240,237,230,0.08)" }} />
                 <div>
                   <div style={{ fontSize:"0.875rem", fontWeight:500, color:"rgba(240,237,230,0.80)", marginBottom:"3px" }}>Appointment Setter</div>
-                  <div style={{ fontSize:"0.8rem", color:"rgba(240,237,230,0.45)", lineHeight:1.5, marginBottom:"4px" }}>&lt;5 min lead response. Converts sign-ups into booked discovery calls before they go cold.</div>
+                  <div style={{ fontSize:"0.8rem", color:"rgba(240,237,230,0.40)", lineHeight:1.5, marginBottom:"4px" }}>&lt;5 min lead response — converts signups to booked calls before they go cold</div>
                   <div style={{ fontSize:"0.875rem", color:"var(--gold-dark)" }}>Pricing on request</div>
                 </div>
               </div>
@@ -448,7 +382,7 @@ export default function Page() {
           </div>
 
           <div style={{ padding:"20px 24px", background:"rgba(240,237,230,0.04)", border:"1px solid rgba(240,237,230,0.08)", borderRadius:"8px", fontSize:"0.875rem", color:"rgba(240,237,230,0.50)", lineHeight:1.65 }}>
-            <strong style={{ color:"rgba(240,237,230,0.70)", fontWeight:500 }}>On risk:</strong> 10 new patients per month at $200/session covers the retainer. Every patient above that is net growth. The referral system alone is designed to generate that number in Month 1 — before we&apos;ve spent a dollar on ads.
+            <strong style={{ color:"rgba(240,237,230,0.70)", fontWeight:500 }}>On risk: </strong>Breakeven for the retainer is 12.5 new patients per month at $200/session — roughly 3 more per week than you&apos;re doing now. Referral patients often spend $400–500 (supplements + session), so the real breakeven is lower. The referral system is designed to generate that number before we spend anything on ads.
           </div>
         </div>
       </section>
@@ -460,49 +394,35 @@ export default function Page() {
           <h2 style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,3.5vw,2.8rem)", fontWeight:300, lineHeight:1.2, letterSpacing:"-0.01em", marginBottom:"36px" }}>
             Simple from here
           </h2>
-          <div style={{ display:"flex", flexDirection:"column", gap:"20px", marginBottom:"48px" }}>
+          <div style={{ display:"flex", flexDirection:"column", gap:"20px", marginBottom:"40px" }}>
             {[
-              ["Choose your path", "Pick the option that fits where you are. We can talk through both on Wednesday."],
-              ["We sign and invoice", "Agreement signed, first invoice cleared. Work begins."],
-              ["60-min onboarding", "We map your patient list, audit your current accounts, and set up the referral infrastructure."],
-              ["Week one deliverable", "Referral system live. First patient outreach calls placed. You start seeing the machine work."],
+              ["Choose your option","Pick Option A (full pipeline) or Option B (referral sprint). We discuss both on Wednesday and decide together."],
+              ["Sign and invoice","Agreement signed, first invoice cleared. Work begins immediately."],
+              ["60-min onboarding","We map your patient list, review all current accounts, and begin designing the referral system infrastructure."],
+              ["Week one","Access gained, accounts audited, referral system design underway. We move deliberately — the foundation has to be right."],
             ].map(([title, desc], i) => (
               <div key={i} style={{ display:"flex", gap:"20px", alignItems:"flex-start" }}>
-                <div style={{
-                  width:"32px", height:"32px", borderRadius:"50%",
-                  background:"var(--forest-light)", color:"var(--forest)",
-                  fontSize:"0.8rem", fontWeight:500,
-                  display:"flex", alignItems:"center", justifyContent:"center",
-                  flexShrink:0, marginTop:"2px",
-                }}>{i + 1}</div>
+                <div style={{ width:"32px", height:"32px", borderRadius:"50%", background:"var(--forest-light)", color:"var(--forest)", fontSize:"0.8rem", fontWeight:500, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"2px" }}>{i+1}</div>
                 <div>
-                  <div style={{ fontWeight:500, fontSize:"0.95rem", marginBottom:"3px" }}>{title}</div>
-                  <div style={{ fontSize:"0.875rem", color:"var(--muted)", lineHeight:1.6 }}>{desc}</div>
+                  <div style={{ fontWeight:500, fontSize:"0.95rem", marginBottom:"3px" }}>{title as string}</div>
+                  <div style={{ fontSize:"0.875rem", color:"var(--muted)", lineHeight:1.6 }}>{desc as string}</div>
                 </div>
               </div>
             ))}
           </div>
-
           <div style={{ background:"var(--bg-alt)", border:"1px solid rgba(184,150,46,0.15)", borderRadius:"12px", padding:"28px 32px", boxShadow:"var(--shadow-sm)", marginBottom:"48px" }}>
             <div style={{ fontSize:"0.875rem", color:"var(--muted)", lineHeight:1.75 }}>
               The only thing I need from you — beyond the financial commitment — is <strong style={{ color:"var(--text)", fontWeight:500 }}>trust and creative freedom</strong>. When those are present, we build something that compounds. I don&apos;t do average work, and I won&apos;t start here.
             </div>
           </div>
-
           <div style={{ paddingTop:"40px", borderTop:"1px solid var(--border)", display:"flex", alignItems:"flex-start", gap:"16px" }}>
-            <div style={{
-              width:"44px", height:"44px", borderRadius:"50%",
-              background:"var(--forest)", display:"flex", alignItems:"center", justifyContent:"center",
-              fontFamily:"var(--font-display)", fontSize:"16px", fontWeight:300,
-              color:"var(--bg)", flexShrink:0,
-            }}>AC</div>
+            <div style={{ width:"44px", height:"44px", borderRadius:"50%", background:"var(--forest)", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"var(--font-display)", fontSize:"16px", fontWeight:300, color:"var(--bg)", flexShrink:0 }}>AC</div>
             <div>
               <div style={{ fontWeight:500, fontSize:"0.95rem", marginBottom:"2px" }}>Abhi Chand</div>
               <div style={{ fontSize:"0.875rem", color:"var(--muted)", marginBottom:"2px" }}>Digital Growth Strategist · Nava45</div>
               <div style={{ fontSize:"0.8rem", color:"var(--muted)" }}>
                 <a href="mailto:abhi@nava45.com" style={{ color:"var(--forest-mid)", textDecoration:"none" }}>abhi@nava45.com</a>
-                {" · "}
-                <a href="https://nava45.com" style={{ color:"var(--forest-mid)", textDecoration:"none" }}>nava45.com</a>
+                {" · "}<a href="https://nava45.com" style={{ color:"var(--forest-mid)", textDecoration:"none" }}>nava45.com</a>
               </div>
             </div>
           </div>
@@ -513,64 +433,51 @@ export default function Page() {
         Prepared for Hermeet Suri · Homeopathic Plus Centre · May 2026 ·{" "}
         <a href="https://nava45.com" style={{ color:"rgba(240,237,230,0.35)", textDecoration:"none" }}>nava45.com</a>
       </footer>
-
     </main>
   );
 }
 
-/* ─── PHASE PANEL ─── */
 function PhasePanel({ phase }: { phase: Phase }) {
   return (
-    <div>
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"32px" }}>
-        <div>
-          <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--muted)", marginBottom:"8px" }}>Purpose</div>
-          <p style={{ fontSize:"0.9rem", color:"var(--text)", lineHeight:1.7, marginBottom:"24px" }}>{phase.purpose}</p>
-
-          {phase.budget && (
-            <div style={{ background:"var(--forest-light)", border:"1px solid rgba(61,107,92,0.2)", borderRadius:"8px", padding:"14px 16px", marginBottom:"16px" }}>
-              <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color:"var(--forest-mid)", marginBottom:"4px" }}>Ad budget required</div>
-              <div style={{ fontSize:"0.95rem", fontWeight:500, color:"var(--forest)" }}>{phase.budget}</div>
-              <div style={{ fontSize:"0.8rem", color:"var(--forest-mid)", marginTop:"3px" }}>Paid directly to Meta — separate from retainer</div>
+    <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"36px" }}>
+      <div>
+        <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--muted)", marginBottom:"8px" }}>Purpose</div>
+        <p style={{ fontSize:"0.9rem", color:"var(--text)", lineHeight:1.75, marginBottom:"20px" }}>{phase.purpose}</p>
+        {phase.budget && (
+          <div style={{ background:"var(--forest-light)", border:"1px solid rgba(61,107,92,0.20)", borderRadius:"8px", padding:"14px 16px", marginBottom:"14px" }}>
+            <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color:"var(--forest-mid)", marginBottom:"4px" }}>Ad budget required</div>
+            <div style={{ fontSize:"0.95rem", fontWeight:500, color:"var(--forest)" }}>{phase.budget}</div>
+            <div style={{ fontSize:"0.75rem", color:"var(--forest-mid)", marginTop:"3px" }}>Paid to Meta directly — separate from retainer</div>
+          </div>
+        )}
+        {phase.note && (
+          <div style={{ background:"rgba(184,150,46,0.06)", border:"1px solid rgba(184,150,46,0.18)", borderRadius:"8px", padding:"14px 16px" }}>
+            <div style={{ fontSize:"0.8rem", color:"var(--text)", lineHeight:1.65, fontStyle:"italic" }}>&ldquo;{phase.note}&rdquo;</div>
+          </div>
+        )}
+      </div>
+      <div>
+        <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--muted)", marginBottom:"8px" }}>Key activities</div>
+        <div style={{ display:"flex", flexDirection:"column", gap:"8px", marginBottom:"20px" }}>
+          {phase.activities.map((a) => (
+            <div key={a} style={{ display:"flex", gap:"10px", fontSize:"0.875rem", color:"var(--text)", lineHeight:1.5 }}>
+              <span style={{ color:"var(--gold)", flexShrink:0, marginTop:"2px" }}>→</span>{a}
             </div>
-          )}
-
-          {phase.note && (
-            <div style={{ background:"rgba(184,150,46,0.06)", border:"1px solid rgba(184,150,46,0.20)", borderRadius:"8px", padding:"14px 16px" }}>
-              <div style={{ fontSize:"0.8rem", color:"var(--text)", lineHeight:1.6, fontStyle:"italic" }}>&ldquo;{phase.note}&rdquo;</div>
-            </div>
-          )}
+          ))}
         </div>
-
-        <div>
-          <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--muted)", marginBottom:"8px" }}>Key activities</div>
-          <div style={{ display:"flex", flexDirection:"column", gap:"8px", marginBottom:"24px" }}>
-            {phase.activities.map((a) => (
-              <div key={a} style={{ display:"flex", gap:"10px", fontSize:"0.875rem", color:"var(--text)", lineHeight:1.5 }}>
-                <span style={{ color:"var(--gold)", flexShrink:0, marginTop:"2px" }}>→</span>{a}
-              </div>
-            ))}
-          </div>
-
-          <div style={{ background:"var(--bg-alt)", border:"1px solid var(--border)", borderRadius:"8px", padding:"16px" }}>
-            <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color:"var(--muted)", marginBottom:"6px" }}>What you&apos;ll have when this is done</div>
-            <div style={{ fontSize:"0.875rem", color:"var(--text)", lineHeight:1.6 }}>{phase.output}</div>
-          </div>
+        <div style={{ background:"var(--bg-alt)", border:"1px solid var(--border)", borderRadius:"8px", padding:"16px" }}>
+          <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color:"var(--muted)", marginBottom:"6px" }}>What you&apos;ll have when this is done</div>
+          <div style={{ fontSize:"0.875rem", color:"var(--text)", lineHeight:1.65 }}>{phase.output}</div>
         </div>
       </div>
     </div>
   );
 }
 
-/* ─── EYEBROW LABEL ─── */
 function EyebrowLabel({ children, light }: { children: React.ReactNode; light?: boolean }) {
   return (
-    <div style={{
-      fontSize:"0.75rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase",
-      color: light ? "var(--gold-dark)" : "var(--gold)",
-      marginBottom:"16px", display:"flex", alignItems:"center", gap:"10px",
-    }}>
-      <span style={{ display:"inline-block", width:"18px", height:"1px", background: light ? "var(--gold-dark)" : "var(--gold)" }} />
+    <div style={{ fontSize:"0.75rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color:light?"var(--gold-dark)":"var(--gold)", marginBottom:"16px", display:"flex", alignItems:"center", gap:"10px" }}>
+      <span style={{ display:"inline-block", width:"18px", height:"1px", background:light?"var(--gold-dark)":"var(--gold)" }} />
       {children}
     </div>
   );
