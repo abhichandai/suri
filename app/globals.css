@@ -1,39 +1,42 @@
 @import "tailwindcss";
-
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@300;400;500&display=swap');
 
 :root {
-  --ink: #1a1a18;
-  --ink-mid: #3d3d39;
-  --ink-light: #7a7a72;
-  --cream: #f8f5ef;
-  --warm-white: #fffdf9;
-  --gold: #b8954a;
-  --gold-light: #d4b06a;
-  --forest: #2c4a3e;
-  --forest-mid: #3d6b5c;
-  --forest-light: #e8f2ee;
-  --border: rgba(26,26,24,0.10);
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --sans: 'Inter', system-ui, sans-serif;
+  --gold: #B8962E;
+  --gold-dark: #C9A84C;
+  --gold-100: #F3E8C8;
+  --bg: #FAFAF8;
+  --bg-alt: #F4F3F0;
+  --text: #111110;
+  --muted: #8A8780;
+  --border: #E8E6E1;
+  --forest: #2C4A3E;
+  --forest-mid: #3D6B5C;
+  --forest-light: #E8F2EE;
+  --shadow-xs: 0 1px 2px rgba(40,30,10,0.06);
+  --shadow-sm: 0 2px 8px rgba(40,30,10,0.08), 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(40,30,10,0.10), 0 2px 6px rgba(0,0,0,0.05);
+  --shadow-lg: 0 8px 32px rgba(40,30,10,0.12), 0 4px 12px rgba(0,0,0,0.06);
+  --gold-glow: 0 4px 24px rgba(184,150,46,0.18);
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-ui: 'Outfit', system-ui, sans-serif;
 }
 
-* { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: var(--sans);
-  background: var(--warm-white);
-  color: var(--ink);
+  font-family: var(--font-ui);
+  background: var(--bg);
+  color: var(--text);
   line-height: 1.7;
+  font-size: 16px;
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
 }
 
 .fade-up {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(18px);
   transition: opacity 0.65s ease, transform 0.65s ease;
 }
-.fade-up.visible {
-  opacity: 1;
-  transform: none;
-}
+.fade-up.visible { opacity: 1; transform: none; }
