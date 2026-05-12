@@ -322,7 +322,7 @@ export default function MapPage() {
       {/* ── THREE STEPS ── */}
       <section style={{ minHeight:"100vh", background:"#0E0D0C", display:"flex", alignItems:"center", justifyContent:"center", padding:"40px" }}>
         <p style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,4vw,4rem)", fontWeight:300, lineHeight:1.1, letterSpacing:"-0.01em", color:"var(--bg)", whiteSpace:"nowrap" }}>
-          Three steps to <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>get there.</em>
+          3 steps to <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>get there.</em>
         </p>
       </section>
 
@@ -370,7 +370,7 @@ export default function MapPage() {
         <div style={{ maxWidth:"860px", margin:"0 auto" }}>
           <EyebrowLabel>Step 2 of 3</EyebrowLabel>
           <h2 style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,3.5vw,2.8rem)", fontWeight:300, lineHeight:1.2, letterSpacing:"-0.01em", marginBottom:"16px" }}>
-            Where do we <em style={{ fontStyle:"italic", color:"var(--gold)" }}>find her?</em>
+            Where do we <em style={{ fontStyle:"italic", color:"var(--gold)" }}>find them?</em>
           </h2>
           <p style={{ fontSize:"1rem", color:"var(--muted)", maxWidth:"540px", marginBottom:"48px", lineHeight:1.75 }}>
             We looked at the primary channels. Here&apos;s what the data says.
@@ -641,7 +641,7 @@ export default function MapPage() {
                 ))}
                 <div style={{ height:"1px", background:"rgba(240,237,230,0.08)" }} />
                 <div style={{ fontSize:"0.75rem", color:"rgba(240,237,230,0.35)", lineHeight:1.5 }}>
-                  Breakeven: 10 new patients/month at $200 LTV — just 2.5 more per week than you&apos;re doing now.
+                  Breakeven: 10 new patients/month at $200/first session — just 2.5 more per week than you&apos;re doing now.
                 </div>
               </div>
             </div>
@@ -667,7 +667,7 @@ export default function MapPage() {
       </section>
 
       {/* ── GUARANTEE ── */}
-      <section className="fade-up" style={{ background:"var(--bg)", padding:"96px 40px" }}>
+      <section className="fade-up" style={{ minHeight:"100vh", background:"var(--bg)", display:"flex", alignItems:"center", padding:"96px 40px" }}>
         <div style={{ maxWidth:"860px", margin:"0 auto" }}>
           <EyebrowLabel>Our guarantee</EyebrowLabel>
           <div style={{ display:"grid", gridTemplateColumns:"1fr 2fr", gap:"48px", alignItems:"center" }}>
