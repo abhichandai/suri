@@ -666,6 +666,20 @@ export default function MapPage() {
         </div>
       </section>
 
+      {/* ── PROJECTIONS ── */}
+      <section className="fade-up" style={{ background:"var(--bg-alt)", padding:"96px 40px" }}>
+        <div style={{ maxWidth:"1100px", margin:"0 auto" }}>
+          <EyebrowLabel>Funnel projections</EyebrowLabel>
+          <h2 style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,3.5vw,2.8rem)", fontWeight:300, lineHeight:1.2, letterSpacing:"-0.01em", marginBottom:"16px" }}>
+            From ad spend to <em style={{ fontStyle:"italic", color:"var(--gold)" }}>new patients.</em>
+          </h2>
+          <p style={{ fontSize:"1rem", color:"var(--muted)", maxWidth:"600px", marginBottom:"40px", lineHeight:1.75 }}>
+            Adjust every assumption. See the full funnel. These are projections — real numbers depend on creative quality, offer strength, and how well you close. This shows what&apos;s possible when the system is working.
+          </p>
+          <FunnelProjections />
+        </div>
+      </section>
+
       {/* ── GUARANTEE ── */}
       <section className="fade-up" style={{ minHeight:"100vh", background:"var(--bg)", display:"flex", alignItems:"center", padding:"96px 40px" }}>
         <div style={{ maxWidth:"860px", margin:"0 auto" }}>
@@ -751,6 +765,183 @@ export default function MapPage() {
     </main>
   );
 }
+
+function FunnelProjections() {
+  const [budget, setBudget] = useState(700);
+  const [cpc, setCpc] = useState(1.5);
+  const [signupRate, setSignupRate] = useState(35);
+  const [bookingRate, setBookingRate] = useState(25);
+  const [showRate, setShowRate] = useState(65);
+  const [closeRate, setCloseRate] = useState(70);
+  const [offerPrice, setOfferPrice] = useState(200);
+  const [followUpRate, setFollowUpRate] = useState(10);
+
+  const clicks = Math.round(budget / cpc);
+  const signups = Math.round(clicks * signupRate / 100);
+  const cpl = signups > 0 ? budget / signups : 0;
+  const callsBooked = Math.round(signups * bookingRate / 100);
+  const shows = Math.round(callsBooked * showRate / 100);
+  const closedPatients = Math.round(shows * closeRate / 100);
+  const immediateRevenue = closedPatients * offerPrice;
+  const nonBookingLeads = signups - callsBooked;
+  const followUpSales = Math.round(nonBookingLeads * followUpRate / 100);
+  const followUpRevenue = followUpSales * offerPrice;
+  const totalPatients = closedPatients + followUpSales;
+  const totalRevenue = immediateRevenue + followUpRevenue;
+  const roas = budget > 0 ? Math.round((totalRevenue / budget) * 100) : 0;
+
+  const fmt$ = (n: number) => n >= 1000 ? `$${(n/1000).toFixed(1)}K` : `$${n.toFixed(0)}`;
+
+  const stages = [
+    {
+      id:"spend", label:"Ad Spend", color:"var(--forest-mid)",
+      inputs:[
+        { label:"Monthly budget", value:budget, min:200, max:3000, step:50, set:setBudget, fmt:(v:number)=>`$${v}` },
+        { label:"Cost per click", value:cpc, min:0.5, max:5, step:0.25, set:setCpc, fmt:(v:number)=>`$${v.toFixed(2)}` },
+      ],
+      outputs:[{ label:"Est. clicks", value:clicks.toString() }],
+    },
+    {
+      id:"signups", label:"Signups", color:"var(--forest-mid)",
+      inputs:[
+        { label:"Sign-up rate", value:signupRate, min:5, max:70, step:5, set:setSignupRate, fmt:(v:number)=>`${v}%` },
+      ],
+      outputs:[
+        { label:"Leads/mo", value:signups.toString(), big:true },
+        { label:"Cost per lead", value:fmt$(cpl) },
+      ],
+    },
+    {
+      id:"calls", label:"Discovery Calls", color:"#2E7D52",
+      inputs:[
+        { label:"Booking rate", value:bookingRate, min:5, max:60, step:5, set:setBookingRate, fmt:(v:number)=>`${v}%` },
+      ],
+      outputs:[
+        { label:"Calls booked", value:callsBooked.toString(), big:true },
+        { label:"Cost per call", value:callsBooked > 0 ? fmt$(budget/callsBooked) : "—" },
+      ],
+    },
+    {
+      id:"shows", label:"Shows", color:"#2E7D52",
+      inputs:[
+        { label:"Show-up rate", value:showRate, min:20, max:95, step:5, set:setShowRate, fmt:(v:number)=>`${v}%` },
+      ],
+      outputs:[
+        { label:"Show-ups", value:shows.toString(), big:true },
+        { label:"Cost per show", value:shows > 0 ? fmt$(budget/shows) : "—" },
+      ],
+    },
+    {
+      id:"patients", label:"New Patients", color:"var(--gold)",
+      inputs:[
+        { label:"Close rate", value:closeRate, min:20, max:95, step:5, set:setCloseRate, fmt:(v:number)=>`${v}%` },
+        { label:"Offer price", value:offerPrice, min:100, max:800, step:50, set:setOfferPrice, fmt:(v:number)=>`$${v}` },
+      ],
+      outputs:[
+        { label:"New patients", value:closedPatients.toString(), big:true },
+        { label:"Revenue", value:fmt$(immediateRevenue), big:true },
+      ],
+    },
+  ];
+
+  return (
+    <div>
+      {/* Horizontal funnel */}
+      <div style={{ overflowX:"auto", paddingBottom:"8px" }}>
+        <div style={{ display:"flex", gap:"0", alignItems:"stretch", minWidth:"900px" }}>
+          {stages.map((stage, si) => (
+            <div key={stage.id} style={{ display:"flex", alignItems:"center", flex:1 }}>
+              <div style={{ flex:1, background:"var(--bg)", border:"1px solid var(--border)", borderRadius:"12px", padding:"18px 16px", boxShadow:"var(--shadow-sm)" }}>
+                {/* Stage header */}
+                <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:stage.color, marginBottom:"12px", borderBottom:"2px solid "+stage.color, paddingBottom:"6px" }}>
+                  {stage.label}
+                </div>
+                {/* Inputs */}
+                {stage.inputs.map(inp => (
+                  <div key={inp.label} style={{ marginBottom:"12px" }}>
+                    <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"4px" }}>
+                      <span style={{ fontSize:"0.7rem", color:"var(--muted)" }}>{inp.label}</span>
+                      <span style={{ fontSize:"0.75rem", fontWeight:500, color:"var(--text)" }}>{inp.fmt(inp.value)}</span>
+                    </div>
+                    <input type="range" min={inp.min} max={inp.max} step={inp.step} value={inp.value}
+                      onChange={e => inp.set(Number(e.target.value))}
+                      style={{ width:"100%", accentColor:"var(--gold)", cursor:"pointer", height:"3px" }}
+                    />
+                  </div>
+                ))}
+                {/* Outputs */}
+                <div style={{ display:"flex", flexDirection:"column", gap:"6px", marginTop:"8px", paddingTop:"8px", borderTop:"1px solid var(--border)" }}>
+                  {stage.outputs.map(out => (
+                    <div key={out.label}>
+                      <div style={{ fontSize:"0.65rem", color:"var(--muted)", letterSpacing:"0.06em", textTransform:"uppercase" }}>{out.label}</div>
+                      <div style={{ fontFamily:"var(--font-display)", fontSize: (out as {big?:boolean}).big ? "1.8rem" : "1.1rem", fontWeight:300, color: (out as {big?:boolean}).big ? "var(--gold)" : "var(--text)", lineHeight:1.1 }}>{out.value}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Arrow connector */}
+              {si < stages.length - 1 && (
+                <div style={{ flexShrink:0, width:"28px", display:"flex", alignItems:"center", justifyContent:"center" }}>
+                  <svg width="28" height="12" viewBox="0 0 28 12" fill="none">
+                    <line x1="0" y1="6" x2="20" y2="6" stroke="var(--gold)" strokeWidth="1.5"/>
+                    <polyline points="16,2 24,6 16,10" stroke="var(--gold)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Follow-up row */}
+      <div style={{ marginTop:"16px", background:"var(--bg)", border:"1px solid var(--border)", borderRadius:"12px", padding:"20px 24px", boxShadow:"var(--shadow-sm)" }}>
+        <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--muted)", marginBottom:"14px" }}>Follow-up pipeline — leads who didn&apos;t book a call</div>
+        <div style={{ display:"grid", gridTemplateColumns:"280px 1fr 100px 100px 100px 100px", gap:"20px", alignItems:"center" }}>
+          <div>
+            <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"4px" }}>
+              <span style={{ fontSize:"0.7rem", color:"var(--muted)" }}>Follow-up conversion rate</span>
+              <span style={{ fontSize:"0.75rem", fontWeight:500, color:"var(--text)" }}>{followUpRate}%</span>
+            </div>
+            <input type="range" min={1} max={30} step={1} value={followUpRate}
+              onChange={e => setFollowUpRate(Number(e.target.value))}
+              style={{ width:"100%", accentColor:"var(--gold)", cursor:"pointer", height:"3px" }}
+            />
+            <div style={{ fontSize:"0.65rem", color:"var(--muted)", marginTop:"3px" }}>of {nonBookingLeads} non-booking leads</div>
+          </div>
+          {[
+            { label:"Follow-up sales", value:followUpSales.toString() },
+            { label:"Follow-up revenue", value:fmt$(followUpRevenue) },
+          ].map(item => (
+            <div key={item.label} style={{ textAlign:"center" }}>
+              <div style={{ fontSize:"0.65rem", color:"var(--muted)", textTransform:"uppercase", letterSpacing:"0.06em", marginBottom:"4px" }}>{item.label}</div>
+              <div style={{ fontFamily:"var(--font-display)", fontSize:"1.5rem", fontWeight:300, color:"var(--text)" }}>{item.value}</div>
+            </div>
+          ))}
+          <div style={{ gridColumn:"span 3" }} />
+        </div>
+      </div>
+
+      {/* Summary bar */}
+      <div style={{ marginTop:"16px", display:"grid", gridTemplateColumns:"1fr 1fr 1fr 1fr", gap:"12px" }}>
+        {[
+          { label:"Total new patients / mo", value:totalPatients.toString(), gold:false },
+          { label:"Total revenue / mo", value:fmt$(totalRevenue), gold:true },
+          { label:"Return on ad spend", value:`${roas}%`, gold:true },
+          { label:"Cost per new patient", value:totalPatients > 0 ? fmt$(budget/totalPatients) : "—", gold:false },
+        ].map(item => (
+          <div key={item.label} style={{ background: item.gold ? "rgba(184,150,46,0.08)" : "var(--bg)", border:`1px solid ${item.gold ? "rgba(184,150,46,0.25)" : "var(--border)"}`, borderRadius:"10px", padding:"16px 18px", textAlign:"center", boxShadow:"var(--shadow-xs)" }}>
+            <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color: item.gold ? "var(--gold)" : "var(--muted)", marginBottom:"6px" }}>{item.label}</div>
+            <div style={{ fontFamily:"var(--font-display)", fontSize:"2rem", fontWeight:300, color: item.gold ? "var(--gold)" : "var(--text)", lineHeight:1 }}>{item.value}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop:"12px", fontSize:"0.75rem", color:"var(--muted)", lineHeight:1.6, fontStyle:"italic" }}>
+        Projections only. Actual results depend on creative quality, offer resonance, and conversion skill. What Nava45 controls: leads generated and discovery calls booked. What converts those calls to patients is on you — and you&apos;re already great at it.
+      </div>
+    </div>
+  );
+}
+
 
 function PhasePanel({ phase }: { phase: typeof PHASES[0] }) {
   return (
