@@ -104,10 +104,7 @@ function ROICalculator() {
   const incrementalRevenue6mo = 0 + (monthlyGain * 0.5 * 2) + (monthlyGain * 1.0 * 2);
   const netMonth6 = incrementalRevenue6mo - totalInvestment;
 
-  // After engagement ends (maintenance ads ~$500/mo, no retainer)
-  const maintenanceCost = 500;
-  const monthlyNetAfter = monthlyGain - maintenanceCost;
-  const monthsToRecoverIfNegative = netMonth6 < 0 ? Math.ceil(Math.abs(netMonth6) / monthlyNetAfter) : 0;
+  const monthsToRecoverIfNegative = netMonth6 < 0 ? Math.ceil(Math.abs(netMonth6) / monthlyGain) : 0;
   const fullBreakevenMonth = netMonth6 < 0 ? 6 + monthsToRecoverIfNegative : 6;
 
   const fmt = (n: number) => n >= 1000 ? `$${(n / 1000).toFixed(1)}K` : `$${Math.round(n)}`;
@@ -172,9 +169,9 @@ function ROICalculator() {
           ))}
           <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(240,237,230,0.08)", borderRadius:"10px", padding:"16px 18px" }}>
             <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color:"rgba(240,237,230,0.35)", marginBottom:"10px" }}>6-month projection</div>
-            <div style={{ display:"flex", flexDirection:"column", gap:"6px" }}>
+            <div style={{ display:"flex", flexDirection:"column", gap:"6px", marginBottom:"14px" }}>
               {[
-                ["Incremental revenue earned (6 mo)", fmt(incrementalRevenue6mo)],
+                ["Revenue generated above baseline (6 mo)", fmt(incrementalRevenue6mo)],
                 ["Total investment", `$${totalInvestment.toLocaleString()}`],
                 ["Net position at month 6", `${netMonth6 >= 0 ? "+" : ""}${fmt(netMonth6)}`],
                 ["Full breakeven", `Month ${fullBreakevenMonth}`],
@@ -185,8 +182,8 @@ function ROICalculator() {
                 </div>
               ))}
             </div>
-            <div style={{ marginTop:"12px", paddingTop:"12px", borderTop:"1px solid rgba(240,237,230,0.08)", fontSize:"0.7rem", color:"rgba(240,237,230,0.30)", lineHeight:1.6 }}>
-              After month 6: {fmt(monthlyNetAfter)}/mo net (at target, with ~$500/mo maintenance ads, no retainer). Ramp assumes 0% gain months 1–2, 50% months 3–4, 100% months 5–6.
+            <div style={{ paddingTop:"12px", borderTop:"1px solid rgba(240,237,230,0.08)", fontSize:"0.7rem", color:"rgba(240,237,230,0.30)", lineHeight:1.65 }}>
+              <strong style={{ color:"rgba(240,237,230,0.40)", fontWeight:500 }}>How the ramp works:</strong> Months 1–2 = infrastructure build, zero ad spend, 0% of gain. Months 3–4 = testing phase, reaching roughly 50% of the target improvement. Months 5–6 = at target, 100% of the gain. Revenue above baseline accumulates across all 6 months using this model.
             </div>
           </div>
         </div>
@@ -523,7 +520,7 @@ export default function MapPage() {
             <em style={{ fontStyle:"italic", color:"var(--gold)" }}>$14.5M in pipeline.</em>
           </h2>
           <p style={{ fontSize:"1rem", color:"var(--muted)", maxWidth:"560px", marginBottom:"48px", lineHeight:1.75 }}>
-            We applied the same Laser Targeting and Precision-Marketing approach for Balance Catamarans — a luxury yacht company. The same infrastructure is what we&apos;re building for Homeopathic Plus Centre.
+            We applied the same Laser Targeting and Precision-Marketing approach for Balance Catamarans — a luxury yacht company. The result was $14.5M in qualified sales pipeline. Different market. Same precision. Same commitment to results.
           </p>
 
           {/* BC layout: big overview left, 3 stacked right */}
@@ -554,7 +551,7 @@ export default function MapPage() {
         <div style={{ textAlign:"center", maxWidth:"860px" }}>
           <p style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,3.8vw,3.8rem)", fontWeight:300, lineHeight:1.2, letterSpacing:"-0.01em", color:"var(--bg)" }}>
             Do you think this plan could{" "}
-            <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>double your weekly patient count?</em>
+            <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>work for you?</em>
           </p>
         </div>
       </section>
