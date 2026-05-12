@@ -90,9 +90,9 @@ const PHASES = [
 function ROICalculator() {
   const [currentPts, setCurrentPts] = useState(8);
   const [targetPts, setTargetPts] = useState(16);
-  const [ltv, setLtv] = useState(200);
+  const [ltv, setLtv] = useState(350);
 
-  const retainer = 2500;
+  const retainer = 2000;
   const adSpend = 3500;
   const totalInvestment = retainer * 6 + adSpend;
 
@@ -100,8 +100,10 @@ function ROICalculator() {
   const targetMonthly = targetPts * 4 * ltv;
   const monthlyGain = targetMonthly - currentMonthly;
 
-  // Ramp model: months 1-2 = 0% gain, months 3-4 = 50% gain, months 5-6 = 100% gain
-  const incrementalRevenue6mo = 0 + (monthlyGain * 0.5 * 2) + (monthlyGain * 1.0 * 2);
+  // Ramp model: months 1-4 = 0% (build + testing, no results yet)
+  // Month 5 = 50% of target gain (scale begins, discovery sessions start booking)
+  // Month 6 = 100% of target gain (at full run rate)
+  const incrementalRevenue6mo = (monthlyGain * 0.5) + (monthlyGain * 1.0);
   const netMonth6 = incrementalRevenue6mo - totalInvestment;
 
   const monthsToRecoverIfNegative = netMonth6 < 0 ? Math.ceil(Math.abs(netMonth6) / monthlyGain) : 0;
@@ -123,8 +125,32 @@ function ROICalculator() {
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"32px" }}>
         {/* Sliders */}
         <div>
+          <div style={{ marginBottom:"20px" }}>
+            <div style={{ fontSize:"0.75rem", fontWeight:500, color:"rgba(240,237,230,0.70)", marginBottom:"10px" }}>How the investment ramp works</div>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(6,1fr)", gap:"4px", marginBottom:"8px" }}>
+              {[
+                { mo:"M1", pct:0, label:"Build" },
+                { mo:"M2", pct:0, label:"Build" },
+                { mo:"M3", pct:0, label:"Test" },
+                { mo:"M4", pct:0, label:"Test" },
+                { mo:"M5", pct:50, label:"Scale" },
+                { mo:"M6", pct:100, label:"Scale" },
+              ].map(({ mo, pct, label }) => (
+                <div key={mo} style={{ textAlign:"center" }}>
+                  <div style={{ height:"40px", display:"flex", alignItems:"flex-end", justifyContent:"center", marginBottom:"4px" }}>
+                    <div style={{ width:"100%", background: pct === 0 ? "rgba(240,237,230,0.08)" : pct === 50 ? "rgba(184,150,46,0.35)" : "var(--gold-dark)", borderRadius:"2px 2px 0 0", height:`${Math.max(pct, 8)}%`, minHeight:"4px", transition:"height 0.3s" }} />
+                  </div>
+                  <div style={{ fontSize:"0.6rem", color: pct === 0 ? "rgba(240,237,230,0.30)" : "var(--gold-dark)", fontWeight:500 }}>{mo}</div>
+                  <div style={{ fontSize:"0.55rem", color:"rgba(240,237,230,0.25)", marginTop:"1px" }}>{pct === 0 ? "0%" : `${pct}%`}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ fontSize:"0.7rem", color:"rgba(240,237,230,0.40)", lineHeight:1.55 }}>
+              Months 1–4: building infrastructure and finding the winning offer — <strong style={{ color:"rgba(240,237,230,0.55)" }}>$0 incremental revenue.</strong> Month 5: scale begins, discovery sessions start booking — <strong style={{ color:"rgba(240,237,230,0.55)" }}>50% of target gain.</strong> Month 6: at full run rate — <strong style={{ color:"rgba(240,237,230,0.55)" }}>100% of target gain.</strong>
+            </div>
+          </div>
           <div style={{ fontSize:"0.75rem", color:"rgba(240,237,230,0.40)", marginBottom:"20px", lineHeight:1.5 }}>
-            Adjust the numbers to match your reality. The model assumes the system ramps up progressively — no instant results, no inflated projections.
+            Adjust the numbers to match your reality.
           </div>
           {sliders.map(s => (
             <div key={s.label} style={{ marginBottom:"20px" }}>
@@ -145,7 +171,7 @@ function ROICalculator() {
             </div>
           ))}
           <div style={{ paddingTop:"16px", borderTop:"1px solid rgba(240,237,230,0.08)", display:"flex", flexDirection:"column", gap:"8px" }}>
-            {[["Monthly retainer (fixed)","$2,500 × 6 mo = $15,000"],["Total ad spend (6 months)","$3,500"],["Total 6-month investment",`$${(totalInvestment).toLocaleString()}`]].map(([l,v]) => (
+            {[["Monthly retainer (fixed)","$2,000 × 6 mo = $12,000"],["Total ad spend (6 months)","$3,500"],["Total 6-month investment",`$${(totalInvestment).toLocaleString()}`]].map(([l,v]) => (
               <div key={l} style={{ display:"flex", justifyContent:"space-between", fontSize:"0.8rem" }}>
                 <span style={{ color:"rgba(240,237,230,0.45)" }}>{l}</span>
                 <span style={{ color:"rgba(240,237,230,0.70)", fontWeight:500 }}>{v}</span>
@@ -575,8 +601,8 @@ export default function MapPage() {
                 <div style={{ fontSize:"0.875rem", color:"rgba(240,237,230,0.50)", maxWidth:"400px", lineHeight:1.55 }}>ICA development, referral system, Meta ad infrastructure, creative testing, lead generation, email automation, optimization, and reporting.</div>
               </div>
               <div style={{ textAlign:"right", flexShrink:0 }}>
-                <div style={{ fontFamily:"var(--font-display)", fontSize:"3rem", fontWeight:300, color:"var(--gold-dark)", lineHeight:1 }}>$2,500</div>
-                <div style={{ fontSize:"0.75rem", color:"rgba(240,237,230,0.40)", marginTop:"6px" }}>per month · 4–6 month minimum</div>
+                <div style={{ fontFamily:"var(--font-display)", fontSize:"3rem", fontWeight:300, color:"var(--gold-dark)", lineHeight:1 }}>$2,000</div>
+                <div style={{ fontSize:"0.75rem", color:"rgba(240,237,230,0.40)", marginTop:"6px" }}>per month · 6-month minimum</div>
               </div>
             </div>
             <div style={{ height:"1px", background:"rgba(240,237,230,0.10)", marginBottom:"20px" }} />
@@ -607,7 +633,7 @@ export default function MapPage() {
             <div style={{ border:"1px solid rgba(240,237,230,0.12)", borderRadius:"12px", padding:"24px", background:"rgba(255,255,255,0.04)" }}>
               <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"rgba(240,237,230,0.40)", marginBottom:"14px" }}>Total 6-month picture</div>
               <div style={{ display:"flex", flexDirection:"column", gap:"10px" }}>
-                {[["Retainer × 6 months","$15,000"],["Estimated ad spend","~$3,500"],["Total investment","~$18,500"]].map(([l,a]) => (
+                {[["Retainer × 6 months","$12,000"],["Estimated ad spend","~$3,500"],["Total investment","~$15,500"]].map(([l,a]) => (
                   <div key={l} style={{ display:"flex", justifyContent:"space-between", fontSize:"0.8rem" }}>
                     <span style={{ color:"rgba(240,237,230,0.60)" }}>{l}</span>
                     <span style={{ color: l==="Total investment" ? "var(--gold-dark)" : "rgba(240,237,230,0.70)", fontWeight: l==="Total investment" ? 500 : 300 }}>{a}</span>
@@ -615,7 +641,7 @@ export default function MapPage() {
                 ))}
                 <div style={{ height:"1px", background:"rgba(240,237,230,0.08)" }} />
                 <div style={{ fontSize:"0.75rem", color:"rgba(240,237,230,0.35)", lineHeight:1.5 }}>
-                  Breakeven: 12.5 new patients/month at $200 LTV — 3 more per week than you&apos;re doing now.
+                  Breakeven: 10 new patients/month at $200 LTV — just 2.5 more per week than you&apos;re doing now.
                 </div>
               </div>
             </div>
@@ -650,15 +676,23 @@ export default function MapPage() {
               <div style={{ fontFamily:"var(--font-display)", fontSize:"1.5rem", fontWeight:300, color:"var(--text)", lineHeight:1.2, marginTop:"8px" }}>Money-Back Guarantee</div>
             </div>
             <div>
-              <p style={{ fontSize:"1.1rem", fontWeight:300, color:"var(--text)", lineHeight:1.8, marginBottom:"16px" }}>
-                If you&apos;re not happy with our work — for any reason — give us one month to address your concern.
+              <p style={{ fontSize:"1rem", fontWeight:300, color:"var(--text)", lineHeight:1.8, marginBottom:"24px" }}>
+                Two commitments. Both unconditional.
               </p>
-              <p style={{ fontSize:"1rem", fontWeight:300, color:"var(--muted)", lineHeight:1.8, marginBottom:"12px" }}>
-                If we are unable to turn things around in that one month, we will refund you for that month. No questions asked.
-              </p>
-              <p style={{ fontSize:"0.875rem", color:"var(--muted)", lineHeight:1.7 }}>
-                No cancellation fees. No lock-in beyond the minimum term. If we&apos;re not delivering, we have no right to your money.
-              </p>
+              <div style={{ display:"flex", flexDirection:"column", gap:"16px" }}>
+                <div style={{ background:"var(--bg-alt)", border:"1px solid var(--border)", borderRadius:"10px", padding:"20px 22px" }}>
+                  <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"8px" }}>Commitment 1 — Quality of work</div>
+                  <p style={{ fontSize:"0.95rem", fontWeight:300, color:"var(--text)", lineHeight:1.75 }}>
+                    If you&apos;re not happy with our work for any reason, give us one month to address your concern. If we can&apos;t turn things around in that month, we refund you for that month. No questions asked. No cancellation fees.
+                  </p>
+                </div>
+                <div style={{ background:"var(--bg-alt)", border:"1px solid var(--border)", borderRadius:"10px", padding:"20px 22px" }}>
+                  <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"8px" }}>Commitment 2 — Results</div>
+                  <p style={{ fontSize:"0.95rem", fontWeight:300, color:"var(--text)", lineHeight:1.75 }}>
+                    If we don&apos;t hit the goal of doubling your patient intake within six months, we refund your final month&apos;s payment — $2,000 back to you. You took a chance on this. We honour that.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -671,10 +705,10 @@ export default function MapPage() {
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"20px", marginBottom:"48px" }}>
             <div style={{ border:"1.5px solid var(--gold-dark)", borderRadius:"16px", padding:"28px", background:"rgba(184,150,46,0.06)" }}>
               <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold-dark)", marginBottom:"10px" }}>Your investment</div>
-              <div style={{ fontFamily:"var(--font-display)", fontSize:"2.8rem", fontWeight:300, color:"var(--gold-dark)", lineHeight:1, marginBottom:"4px" }}>$2,500</div>
-              <div style={{ fontSize:"0.75rem", color:"rgba(240,237,230,0.40)", marginBottom:"16px" }}>per month · 4–6 month minimum</div>
+              <div style={{ fontFamily:"var(--font-display)", fontSize:"2.8rem", fontWeight:300, color:"var(--gold-dark)", lineHeight:1, marginBottom:"4px" }}>$2,000</div>
+              <div style={{ fontSize:"0.75rem", color:"rgba(240,237,230,0.40)", marginBottom:"16px" }}>per month · 6-month minimum</div>
               <div style={{ display:"flex", flexDirection:"column", gap:"6px" }}>
-                {[["Total 6-month investment","~$18,500"],["Breakeven","12.5 new patients/mo"],["That&apos;s","3 more per week"]].map(([l,v]) => (
+                {[["Total 6-month investment","~$15,500"],["Breakeven","10 new patients/mo"],["That&apos;s","2.5 more per week"]].map(([l,v]) => (
                   <div key={l} style={{ display:"flex", justifyContent:"space-between", fontSize:"0.8rem" }}>
                     <span style={{ color:"rgba(240,237,230,0.45)" }} dangerouslySetInnerHTML={{ __html: l }} />
                     <span style={{ color:"rgba(240,237,230,0.70)", fontWeight:500 }}>{v}</span>
@@ -685,8 +719,13 @@ export default function MapPage() {
             <div style={{ border:"1px solid rgba(240,237,230,0.15)", borderRadius:"16px", padding:"28px", background:"rgba(255,255,255,0.04)" }}>
               <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"rgba(240,237,230,0.40)", marginBottom:"10px" }}>Our guarantee</div>
               <div style={{ fontFamily:"var(--font-display)", fontSize:"2rem", fontWeight:300, color:"var(--bg)", lineHeight:1.2, marginBottom:"12px" }}>360° Money-Back</div>
-              <div style={{ fontSize:"0.8rem", color:"rgba(240,237,230,0.55)", lineHeight:1.7 }}>
-                Not happy? Give us one month to fix it. Can&apos;t fix it? We refund that month. No questions asked. No cancellation fees.
+              <div style={{ display:"flex", flexDirection:"column", gap:"10px" }}>
+                <div style={{ fontSize:"0.8rem", color:"rgba(240,237,230,0.55)", lineHeight:1.65 }}>
+                  <strong style={{ color:"rgba(240,237,230,0.70)", fontWeight:500 }}>Quality:</strong> Not happy? One month to fix it. Can&apos;t fix it? We refund that month.
+                </div>
+                <div style={{ fontSize:"0.8rem", color:"rgba(240,237,230,0.55)", lineHeight:1.65 }}>
+                  <strong style={{ color:"rgba(240,237,230,0.70)", fontWeight:500 }}>Results:</strong> Don&apos;t hit the doubling goal in 6 months? Your last month&apos;s payment ($2,000) comes back to you.
+                </div>
               </div>
             </div>
           </div>
