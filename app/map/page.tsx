@@ -194,7 +194,7 @@ function ROICalculator() {
             </div>
           ))}
           <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(240,237,230,0.08)", borderRadius:"10px", padding:"16px 18px" }}>
-            <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color:"rgba(240,237,230,0.35)", marginBottom:"10px" }}>6-month projection</div>
+            <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color:"rgba(240,237,230,0.35)", marginBottom:"10px" }}>6-month incremental projection (above current baseline)</div>
             <div style={{ display:"flex", flexDirection:"column", gap:"6px", marginBottom:"14px" }}>
               {[
                 ["Revenue generated above baseline (6 mo)", fmt(incrementalRevenue6mo)],
@@ -762,6 +762,7 @@ function FunnelProjections() {
   const [closeRate, setCloseRate] = useState(70);
   const [patientLTV, setPatientLTV] = useState(350);
   const [followUpRate, setFollowUpRate] = useState(2);
+  const [referralRate, setReferralRate] = useState(10);
 
   const clicks = Math.round(budget / cpc);
   const signups = Math.round(clicks * signupRate / 100);
@@ -774,7 +775,10 @@ function FunnelProjections() {
   const followUpSales = Math.round(nonBookingLeads * followUpRate / 100);
   const followUpRevenue = followUpSales * patientLTV;
   const totalPatients = closedPatients + followUpSales;
-  const totalRevenue = immediateRevenue + followUpRevenue;
+  const referralPatients = Math.round(totalPatients * referralRate / 100);
+  const referralRevenue = referralPatients * patientLTV;
+  const grandTotalPatients = totalPatients + referralPatients;
+  const totalRevenue = immediateRevenue + followUpRevenue + referralRevenue;
   const roas = budget > 0 ? Math.round((totalRevenue / budget) * 100) : 0;
 
   const fmt$ = (n: number) => n >= 1000 ? `$${(n/1000).toFixed(1)}K` : `$${n.toFixed(0)}`;
@@ -908,13 +912,44 @@ function FunnelProjections() {
         </div>
       </div>
 
+      {/* Referral pipeline */}
+      <div style={{ marginTop:"12px", background:"var(--bg)", border:"1.5px solid rgba(184,150,46,0.25)", borderRadius:"12px", padding:"20px 24px", boxShadow:"var(--shadow-sm)" }}>
+        <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"14px" }}>Referral pipeline — new patients who refer others</div>
+        <div style={{ display:"grid", gridTemplateColumns:"280px 1fr 100px 100px 100px 100px", gap:"20px", alignItems:"center" }}>
+          <div>
+            <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"4px" }}>
+              <span style={{ fontSize:"0.7rem", color:"var(--muted)" }}>% of new patients who refer</span>
+              <span style={{ fontSize:"0.75rem", fontWeight:500, color:"var(--text)" }}>{referralRate}%</span>
+            </div>
+            <input type="range" min={0} max={30} step={1} value={referralRate}
+              onChange={e => setReferralRate(Number(e.target.value))}
+              style={{ width:"100%", accentColor:"var(--gold)", cursor:"pointer", height:"3px" }}
+            />
+            <div style={{ fontSize:"0.65rem", color:"var(--muted)", marginTop:"3px" }}>of {totalPatients} new patients from ads + follow-up</div>
+          </div>
+          {[
+            { label:"Referral patients", value:referralPatients.toString() },
+            { label:"Referral revenue", value:fmt$(referralRevenue) },
+          ].map(item => (
+            <div key={item.label} style={{ textAlign:"center" }}>
+              <div style={{ fontSize:"0.65rem", color:"var(--muted)", textTransform:"uppercase", letterSpacing:"0.06em", marginBottom:"4px" }}>{item.label}</div>
+              <div style={{ fontFamily:"var(--font-display)", fontSize:"1.5rem", fontWeight:300, color:"var(--gold)" }}>{item.value}</div>
+            </div>
+          ))}
+          <div style={{ gridColumn:"span 3" }} />
+        </div>
+        <div style={{ marginTop:"12px", fontSize:"0.75rem", color:"var(--muted)", lineHeight:1.5, fontStyle:"italic" }}>
+          {totalPatients} ad patients × {referralRate}% = {referralPatients} referral patients. Combined: <strong style={{ color:"var(--text)", fontWeight:500 }}>{grandTotalPatients} new patients/month</strong> — your target is 24.
+        </div>
+      </div>
+
       {/* Summary bar */}
       <div style={{ marginTop:"16px", display:"grid", gridTemplateColumns:"1fr 1fr 1fr 1fr", gap:"12px" }}>
         {[
-          { label:"Total new patients / mo", value:totalPatients.toString(), gold:false },
+          { label:"Total new patients / mo", value:grandTotalPatients.toString(), gold:false },
           { label:"Total revenue / mo", value:fmt$(totalRevenue), gold:true },
           { label:"Return on ad spend", value:`${roas}%`, gold:true },
-          { label:"Cost per new patient", value:totalPatients > 0 ? fmt$(budget/totalPatients) : "—", gold:false },
+          { label:"Cost per new patient", value:grandTotalPatients > 0 ? fmt$(budget/grandTotalPatients) : "—", gold:false },
         ].map(item => (
           <div key={item.label} style={{ background: item.gold ? "rgba(184,150,46,0.08)" : "var(--bg)", border:`1px solid ${item.gold ? "rgba(184,150,46,0.25)" : "var(--border)"}`, borderRadius:"10px", padding:"16px 18px", textAlign:"center", boxShadow:"var(--shadow-xs)" }}>
             <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color: item.gold ? "var(--gold)" : "var(--muted)", marginBottom:"6px" }}>{item.label}</div>
