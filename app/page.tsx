@@ -743,7 +743,7 @@ export default function MapPage() {
           <div style={{ border:"1px solid rgba(240,237,230,0.12)", borderRadius:"12px", padding:"24px", background:"rgba(255,255,255,0.04)", marginTop:"16px" }}>
             <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"rgba(240,237,230,0.40)", marginBottom:"14px" }}>Optional add-ons</div>
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"20px" }}>
-              {[["ChatGPT / AI Search Optimization","FAQ schema + content restructuring for AI citation visibility","$500 one-time"],["Appointment Setter","<5 min lead response — converts signups before they go cold","Pricing on request"]].map(([name,desc,price]) => (
+              {[["Video Editing","Reels, short-form content, and ad creatives — available upon request","Pricing on request"],["Appointment Setter","<5 min lead response — converts signups before they go cold","Pricing on request"]].map(([name,desc,price]) => (
                 <div key={name}>
                   <div style={{ fontSize:"0.875rem", fontWeight:500, color:"rgba(240,237,230,0.80)", marginBottom:"4px" }}>{name}</div>
                   <div style={{ fontSize:"0.8rem", color:"rgba(240,237,230,0.40)", lineHeight:1.5, marginBottom:"4px" }}>{desc}</div>
@@ -751,6 +751,16 @@ export default function MapPage() {
                 </div>
               ))}
             </div>
+          </div>
+          <div style={{ textAlign:"center", marginTop:"32px" }}>
+            <a href="https://buy.stripe.com/3cI7sL86C7GZ7ga0Jf5gc00"
+              target="_blank" rel="noopener noreferrer"
+              style={{ display:"inline-block", background:"var(--gold)", color:"var(--forest)", fontFamily:"var(--font-ui)", fontSize:"0.95rem", fontWeight:500, letterSpacing:"0.04em", padding:"18px 64px", borderRadius:"8px", textDecoration:"none", boxShadow:"var(--gold-glow)", transition:"all 0.2s ease" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background="var(--gold-dark)"; (e.currentTarget as HTMLElement).style.transform="translateY(-1px)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background="var(--gold)"; (e.currentTarget as HTMLElement).style.transform="none"; }}
+            >
+              Let&apos;s Go
+            </a>
           </div>
         </div>
       </section>
@@ -819,7 +829,7 @@ export default function MapPage() {
             </div>
           </div>
           <div style={{ textAlign:"center" }}>
-            <a href="mailto:abhi@abhichand.com?subject=Ready to get started — Homeopathic Plus Centre"
+            <a href="https://buy.stripe.com/3cI7sL86C7GZ7ga0Jf5gc00" target="_blank" rel="noopener noreferrer"
               style={{ display:"inline-block", background:"var(--gold)", color:"var(--forest)", fontFamily:"var(--font-ui)", fontSize:"0.95rem", fontWeight:500, letterSpacing:"0.04em", padding:"18px 64px", borderRadius:"8px", textDecoration:"none", boxShadow:"var(--gold-glow)", transition:"all 0.2s ease" }}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background="var(--gold-dark)"; (e.currentTarget as HTMLElement).style.transform="translateY(-1px)"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background="var(--gold)"; (e.currentTarget as HTMLElement).style.transform="none"; }}
