@@ -292,7 +292,7 @@ export default function MapPage() {
     <main style={{ fontFamily:"var(--font-ui)", fontWeight:300 }}>
 
       {/* ── HERO ── */}
-      <section style={{ minHeight:"100vh", background:"var(--forest)", display:"flex", flexDirection:"column", justifyContent:"center", padding:"128px 40px", position:"relative", overflow:"hidden" }}>
+      <section style={{ minHeight:"120vh", background:"var(--forest)", display:"flex", flexDirection:"column", justifyContent:"center", padding:"128px 40px", position:"relative", overflow:"hidden" }}>
         <div style={{ position:"absolute", top:"-80px", right:"-100px", width:"500px", height:"500px", borderRadius:"50%", border:"1px solid rgba(184,150,46,0.10)", pointerEvents:"none" }} />
         <div style={{ position:"absolute", bottom:"-60px", left:"-80px", width:"360px", height:"360px", borderRadius:"50%", border:"1px solid rgba(184,150,46,0.06)", pointerEvents:"none" }} />
         <div style={{ maxWidth:"860px", margin:"0 auto", width:"100%", position:"relative", zIndex:1 }}>
@@ -326,7 +326,7 @@ export default function MapPage() {
       </section>
 
       {/* ── THE GOAL ── */}
-      <section className="fade-up" style={{ minHeight:"100vh", background:"var(--bg)", display:"flex", alignItems:"center", padding:"96px 40px" }}>
+      <section className="fade-up" style={{ minHeight:"120vh", background:"var(--bg)", display:"flex", alignItems:"center", padding:"96px 40px" }}>
         <div style={{ maxWidth:"860px", margin:"0 auto", width:"100%" }}>
           <EyebrowLabel>The goal</EyebrowLabel>
           <h2 style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,3.5vw,2.8rem)", fontWeight:300, lineHeight:1.2, letterSpacing:"-0.01em", marginBottom:"20px" }}>
@@ -372,7 +372,7 @@ export default function MapPage() {
       </section>
 
       {/* ── THREE STEPS ── */}
-      <section style={{ minHeight:"100vh", background:"#0E0D0C", display:"flex", alignItems:"center", justifyContent:"center", padding:"40px" }}>
+      <section style={{ minHeight:"120vh", background:"#0E0D0C", display:"flex", alignItems:"center", justifyContent:"center", padding:"40px" }}>
         <p style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,4vw,4rem)", fontWeight:300, lineHeight:1.1, letterSpacing:"-0.01em", color:"var(--bg)", whiteSpace:"nowrap" }}>
           3 steps to <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>get there.</em>
         </p>
@@ -521,7 +521,7 @@ export default function MapPage() {
       </section>
 
       {/* ── HOW DO WE ATTRACT THEM ── */}
-      <section style={{ minHeight:"100vh", background:"var(--forest)", display:"flex", alignItems:"center", justifyContent:"center", padding:"40px" }}>
+      <section style={{ minHeight:"120vh", background:"var(--forest)", display:"flex", alignItems:"center", justifyContent:"center", padding:"40px" }}>
         <p style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,4vw,4rem)", fontWeight:300, lineHeight:1.1, letterSpacing:"-0.01em", color:"var(--bg)", whiteSpace:"nowrap" }}>
           How do we <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>attract them?</em>
         </p>
@@ -662,7 +662,7 @@ export default function MapPage() {
       </section>
 
       {/* ── THE QUESTION ── */}
-      <section style={{ minHeight:"100vh", background:"#0E0D0C", display:"flex", alignItems:"center", justifyContent:"center", padding:"40px" }}>
+      <section style={{ minHeight:"120vh", background:"#0E0D0C", display:"flex", alignItems:"center", justifyContent:"center", padding:"40px" }}>
         <div style={{ textAlign:"center", maxWidth:"860px" }}>
           <p style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,3.8vw,3.8rem)", fontWeight:300, lineHeight:1.2, letterSpacing:"-0.01em", color:"var(--bg)" }}>
             Do you think this plan could{" "}
@@ -786,7 +786,7 @@ export default function MapPage() {
       </section>
 
       {/* ── GUARANTEE ── */}
-      <section className="fade-up" style={{ minHeight:"100vh", background:"var(--bg)", display:"flex", alignItems:"center", padding:"96px 40px" }}>
+      <section className="fade-up" style={{ minHeight:"120vh", background:"var(--bg)", display:"flex", alignItems:"center", padding:"96px 40px" }}>
         <div style={{ maxWidth:"860px", margin:"0 auto" }}>
           <EyebrowLabel>Our guarantee</EyebrowLabel>
           <div style={{ display:"grid", gridTemplateColumns:"1fr 2fr", gap:"48px", alignItems:"center" }}>
@@ -809,7 +809,7 @@ export default function MapPage() {
       </section>
 
       {/* ── FINAL SLIDE ── */}
-      <section className="fade-up" style={{ background:"var(--forest)", padding:"96px 40px", minHeight:"100vh", display:"flex", alignItems:"center" }}>
+      <section className="fade-up" style={{ background:"var(--forest)", padding:"96px 40px", minHeight:"120vh", display:"flex", alignItems:"center" }}>
         <div style={{ maxWidth:"860px", margin:"0 auto", width:"100%" }}>
           <h2 style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.4rem,4vw,3.4rem)", fontWeight:300, color:"var(--bg)", lineHeight:1.1, letterSpacing:"-0.01em", marginBottom:"12px" }}>
             Ready to <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>start?</em>
