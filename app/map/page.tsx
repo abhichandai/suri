@@ -691,21 +691,13 @@ export default function MapPage() {
             </div>
             <div>
               <p style={{ fontSize:"1rem", fontWeight:300, color:"var(--text)", lineHeight:1.8, marginBottom:"24px" }}>
-                Two commitments. Both unconditional.
+                One commitment. Unconditional.
               </p>
-              <div style={{ display:"flex", flexDirection:"column", gap:"16px" }}>
-                <div style={{ background:"var(--bg-alt)", border:"1px solid var(--border)", borderRadius:"10px", padding:"20px 22px" }}>
-                  <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"8px" }}>Commitment 1 — Quality of work</div>
-                  <p style={{ fontSize:"0.95rem", fontWeight:300, color:"var(--text)", lineHeight:1.75 }}>
-                    If you&apos;re not happy with our work for any reason, give us one month to address your concern. If we can&apos;t turn things around in that month, we refund you for that month. No questions asked. No cancellation fees.
-                  </p>
-                </div>
-                <div style={{ background:"var(--bg-alt)", border:"1px solid var(--border)", borderRadius:"10px", padding:"20px 22px" }}>
-                  <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"8px" }}>Commitment 2 — Results</div>
-                  <p style={{ fontSize:"0.95rem", fontWeight:300, color:"var(--text)", lineHeight:1.75 }}>
-                    If we don&apos;t hit the goal of doubling your patient intake within six months, we refund your final month&apos;s payment — $2,000 back to you. You took a chance on this. We honour that.
-                  </p>
-                </div>
+              <div style={{ background:"var(--bg-alt)", border:"1px solid var(--border)", borderRadius:"10px", padding:"20px 22px" }}>
+                <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"8px" }}>Quality of work</div>
+                <p style={{ fontSize:"0.95rem", fontWeight:300, color:"var(--text)", lineHeight:1.75 }}>
+                  If you&apos;re not happy with our work for any reason, give us one month to address your concern. If we can&apos;t turn things around in that month, we refund you for that month. No questions asked. No cancellation fees.
+                </p>
               </div>
             </div>
           </div>
@@ -733,13 +725,8 @@ export default function MapPage() {
             <div style={{ border:"1px solid rgba(240,237,230,0.15)", borderRadius:"16px", padding:"28px", background:"rgba(255,255,255,0.04)" }}>
               <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"rgba(240,237,230,0.40)", marginBottom:"10px" }}>Our guarantee</div>
               <div style={{ fontFamily:"var(--font-display)", fontSize:"2rem", fontWeight:300, color:"var(--bg)", lineHeight:1.2, marginBottom:"12px" }}>360° Money-Back</div>
-              <div style={{ display:"flex", flexDirection:"column", gap:"10px" }}>
-                <div style={{ fontSize:"0.8rem", color:"rgba(240,237,230,0.55)", lineHeight:1.65 }}>
-                  <strong style={{ color:"rgba(240,237,230,0.70)", fontWeight:500 }}>Quality:</strong> Not happy? One month to fix it. Can&apos;t fix it? We refund that month.
-                </div>
-                <div style={{ fontSize:"0.8rem", color:"rgba(240,237,230,0.55)", lineHeight:1.65 }}>
-                  <strong style={{ color:"rgba(240,237,230,0.70)", fontWeight:500 }}>Results:</strong> Don&apos;t hit the doubling goal in 6 months? Your last month&apos;s payment ($2,000) comes back to you.
-                </div>
+              <div style={{ fontSize:"0.8rem", color:"rgba(240,237,230,0.55)", lineHeight:1.7 }}>
+                Not happy with the work? Give us one month to fix it. Can&apos;t fix it? We refund that month. No questions asked. No cancellation fees.
               </div>
             </div>
           </div>
@@ -767,14 +754,14 @@ export default function MapPage() {
 }
 
 function FunnelProjections() {
-  const [budget, setBudget] = useState(700);
-  const [cpc, setCpc] = useState(1.5);
-  const [signupRate, setSignupRate] = useState(35);
-  const [bookingRate, setBookingRate] = useState(25);
-  const [showRate, setShowRate] = useState(65);
+  const [budget, setBudget] = useState(1500);
+  const [cpc, setCpc] = useState(1.0);
+  const [signupRate, setSignupRate] = useState(20);
+  const [bookingRate, setBookingRate] = useState(20);
+  const [showRate, setShowRate] = useState(60);
   const [closeRate, setCloseRate] = useState(70);
-  const [offerPrice, setOfferPrice] = useState(200);
-  const [followUpRate, setFollowUpRate] = useState(10);
+  const [patientLTV, setPatientLTV] = useState(350);
+  const [followUpRate, setFollowUpRate] = useState(2);
 
   const clicks = Math.round(budget / cpc);
   const signups = Math.round(clicks * signupRate / 100);
@@ -782,10 +769,10 @@ function FunnelProjections() {
   const callsBooked = Math.round(signups * bookingRate / 100);
   const shows = Math.round(callsBooked * showRate / 100);
   const closedPatients = Math.round(shows * closeRate / 100);
-  const immediateRevenue = closedPatients * offerPrice;
+  const immediateRevenue = closedPatients * patientLTV;
   const nonBookingLeads = signups - callsBooked;
   const followUpSales = Math.round(nonBookingLeads * followUpRate / 100);
-  const followUpRevenue = followUpSales * offerPrice;
+  const followUpRevenue = followUpSales * patientLTV;
   const totalPatients = closedPatients + followUpSales;
   const totalRevenue = immediateRevenue + followUpRevenue;
   const roas = budget > 0 ? Math.round((totalRevenue / budget) * 100) : 0;
@@ -835,7 +822,7 @@ function FunnelProjections() {
       id:"patients", label:"New Patients", color:"var(--gold)",
       inputs:[
         { label:"Close rate", value:closeRate, min:20, max:95, step:5, set:setCloseRate, fmt:(v:number)=>`${v}%` },
-        { label:"Offer price", value:offerPrice, min:100, max:800, step:50, set:setOfferPrice, fmt:(v:number)=>`$${v}` },
+        { label:"Patient LTV (avg. value per visit)", value:patientLTV, min:100, max:1000, step:50, set:setPatientLTV, fmt:(v:number)=>`$${v}` },
       ],
       outputs:[
         { label:"New patients", value:closedPatients.toString(), big:true },
