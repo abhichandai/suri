@@ -57,32 +57,87 @@ const AUDIENCES = [
 /* ─── PHASE DATA ─── */
 const PHASES = [
   {
-    month: "Month 1", title: "Foundation & Research", tagline: "Set the stage. Mine what already exists.", inProgress: true,
-    purpose: "Before we spend a dollar on ads, the infrastructure has to be solid. We audit every account, begin the referral system, speak directly to existing patients, and get the pixel firing correctly.",
-    activities: ["Full account audit & access review — Meta Business, Google, CRM, booking system", "Referral system design — post-appointment email, Google review ask, monthly patient raffle", "ICA Interviews — conversations with 3–5 existing patients to capture language, pain points, and desires", "Meta Pixel + Conversion API setup and verification", "MailerLite email software setup (client-paid, ~$20/mo directly)", "Booking flow audit — ensure <5 min lead response path is ready before traffic arrives"],
-    deliverables: ["Referral system designed and ready to launch", "ICA hypothesis documented from patient interviews", "All accounts accessed, audited, and organized", "Meta Pixel firing and verified", "MailerLite configured with follow-up sequence skeleton"],
-    note: "ICA Interviews are non-negotiable. Skipping this step is the single biggest reason niche-cracking projects fail.",
+    month: "Month 1", title: "Foundation & Research", tagline: "Set the stage. Build the foundation.", inProgress: true,
+    purpose: "Before a dollar is spent on ads, the infrastructure has to be solid. Every account is audited, tracking is set up correctly, and the referral system is designed — all before traffic arrives.",
+    activities: [
+      "Full account audit + access — Meta Business, Google Analytics, vcita.com, MailerLite",
+      "Meta Pixel + Conversion API setup and verification",
+      "Google Analytics setup and verification",
+      "MailerLite setup + initial email sequence skeleton",
+      "Referral system designed: initial outreach campaign to existing patient list + evergreen automation flow mapped",
+      "vcita → MailerLite integration planned and spec'd — appointment complete triggers referral flow automatically",
+    ],
+    deliverables: [
+      "All accounts accessed, audited, and organized",
+      "Meta Pixel firing and verified",
+      "Google Analytics configured and tracking",
+      "MailerLite configured with sequence skeleton",
+      "Referral system design complete and ready to build",
+      "vcita integration spec documented",
+    ],
   },
   {
     month: "Month 2", title: "ICA Development & Infrastructure", tagline: "Build the profile. Build the machine.", inProgress: false,
-    purpose: "We synthesize everything from Month 1 into a data-backed Ideal Customer Profile, then build the ad infrastructure around it — audiences, offers, and the referral system goes live.",
-    activities: ["Referral system goes live — email sequence active, raffle mechanics in place", "ICA document — synthesize interview data into a full written profile with tested language", "Offer development — create 2–3 offers to test (downloadable guide, direct discovery call booking, etc.)", "Cold audience build in Meta", "Lookalike Audience build from patient email list"],
-    deliverables: ["Referral system live and generating reviews and warm leads", "Data-backed ICA profile document completed", "2–3 offers built and ready to test in Lead Ads", "Cold Audience and LLA ready in Meta Ads Manager"],
-    budget: "$500 ad spend — used to warm the pixel and begin audience validation.",
+    purpose: "ICA interviews with existing patients provide the source material. Combined with our proprietary data-driven testing methodology, this shapes every offer and creative going forward. The referral system goes live.",
+    activities: [
+      "ICA Interviews — 3-5 conversations with existing patients to capture language, pain points, and desires",
+      "Referral system goes live: initial outreach to existing patient email list (raffle, Google review ask, referral incentive) — Abhi manages the send",
+      "Evergreen referral automation built and connected — vcita appointment complete → MailerLite referral flow triggers automatically for every patient, permanently",
+      "ICA document developed from interviews + proprietary data-driven testing methodology",
+      "2-3 offer hypotheses developed",
+      "Cold audience + LLA built in Meta Ads Manager",
+    ],
+    deliverables: [
+      "ICA interviews completed",
+      "Initial referral outreach sent to full patient list",
+      "Evergreen referral automation live and running",
+      "ICA document drafted",
+      "2-3 offers ready to test",
+      "Cold Audience and LLA ready in Meta Ads Manager",
+    ],
+    budget: "$500 ad spend — pixel warm-up and early audience data.",
   },
   {
     month: "Months 3–4", title: "Find the Winning Offer", tagline: "Find what they click. Find what they sign up for.", inProgress: false,
-    purpose: "Multiple structured testing rounds across two audiences to identify the winning creative and offer combination. We test signups via native Lead Ads — the thank-you screen sends them directly to the booking page.",
-    activities: ["Creative Test R1 — run 3–5 creatives against both Cold Audience and LLA", "Lead Ads R1 — winning creatives + offers tested for signups; TY screen → booking page", "Review R1 results — evaluate which offer drives signups and booking intent", "Creative Test R2+ — additional rounds as data dictates", "Evaluate winning offer combination → guides landing page build and scaling decisions", "Appointment setter protocol active — new leads responded to within 5 minutes"],
-    deliverables: ["Winning creative + offer combination identified", "Signup list generated — leads to contact directly", "Follow-up email sequence active via MailerLite", "CPL data from both audiences to inform scaling budget", "Landing page built for the confirmed winning offer"],
+    purpose: "Three structured testing rounds to identify the combination of creative, offer, and audience that produces the most signups. Everything built from here is based on data — not assumptions.",
+    activities: [
+      "Creative testing rounds — multiple rounds of image/video ads to identify what captures the target audience's attention",
+      "Offer testing rounds — test which offers resonate (guide download, discovery call, free resource, discount CTA, etc.)",
+      "Lead Ads testing rounds — winning creatives + winning offers combined to find which combination produces the most signups on native Meta lead forms",
+      "Lead magnet designed and packaged after winning offer confirmed from test data — Suri writes the content, Abhi packages it as PDF (video editing available upon request)",
+      "Lead magnet includes 'try this at home' section + discovery call CTA with 10% off first session code",
+      "Guide delivery via Meta TY screen link → ViewContent pixel event → LLA pool building",
+      "MailerLite follow-up sequence active: guide delivery + discovery call nudges",
+    ],
+    deliverables: [
+      "Winning creative identified from test data",
+      "Winning offer confirmed from test data",
+      "Lead magnet built and delivering",
+      "Native lead form live and generating signups",
+      "MailerLite sequence delivering guides and nurturing leads",
+      "LLA pool building from ViewContent events",
+      "CPL and signup data to inform scaling budget",
+    ],
     budget: "$1,000–$1,500 ad spend across testing rounds.",
-    note: "The <5 min response to new leads is mission-critical. We solve this before ads go live — through automation or an appointment setter add-on.",
+    note: "Studies show contacting leads within 5 minutes of signup increases conversion by 1,000%+. Who handles this response — receptionist, appointment setter, or automation — needs to be solved before ads run.",
   },
   {
-    month: "Months 5–6", title: "Scale", tagline: "Increase spend. Compound the system.", inProgress: false,
-    purpose: "We have a winning combination. The job now is to increase spend to reach more of the validated audience we've already identified. The referral system and the paid pipeline reinforce each other.",
-    activities: ["Scale winning ad combos with increased spend against validated audiences", "Weekly data review — CPL, signup rate, booking rate, show rate, patient conversion", "LLA expansion built from patients who converted through the pipeline", "Referral system layer 2 — patients from paid pipeline become new referral sources", "Identify next optimization lever"],
-    deliverables: ["Predictable weekly patient inquiries from a validated, repeatable system", "Pipeline and referral system reinforcing each other", "Full performance data set to inform what comes next", "A practice that no longer depends on word-of-mouth alone"],
+    month: "Months 5–6", title: "Scale & Optimize", tagline: "Increase spend. Compound the system.", inProgress: false,
+    purpose: "The winning combination is confirmed. The job now is to scale spend on what works while layering in reminder sequences and expanding the referral system to include ad-generated patients.",
+    activities: [
+      "Increase spend on winning creative + offer combination against validated audiences",
+      "Weekly data review — CPL, signup rate, show rate, CAC",
+      "LLA expansion from original patient list + new ad-generated signups",
+      "Appointment reminder sequences added (subject to vcita.com integration capabilities)",
+      "New patients from paid pipeline enrolled in evergreen referral automation — the system feeds itself",
+    ],
+    deliverables: [
+      "Predictable monthly patient inquiries from a validated, repeatable system",
+      "Referral and paid pipelines reinforcing each other",
+      "Full 6-month performance data set",
+      "Infrastructure that continues generating patients beyond the engagement",
+    ],
+    budget: "$1,000–$1,500 ad spend.",
   },
 ];
 
@@ -183,9 +238,9 @@ function ROICalculator() {
         {/* Outputs */}
         <div style={{ display:"flex", flexDirection:"column", gap:"12px" }}>
           {[
-            { label:"Monthly revenue today", value: fmt(currentMonthly), sub:`${currentPts} patients × 4 wks × ${fmt(ltv)} LTV`, gold:false },
-            { label:"Monthly revenue at target", value: fmt(targetMonthly), sub:`${targetPts} patients × 4 wks × ${fmt(ltv)} LTV`, gold:true },
-            { label:"Monthly gain at target", value:`+${fmt(monthlyGain)}`, sub:"incremental above today", gold:true },
+            { label:"Your baseline today", value: fmt(currentMonthly), sub:`${currentPts} patients/wk × 4 wks × ${fmt(ltv)} LTV`, gold:false },
+            { label:"Added by this investment", value:`+${fmt(monthlyGain)}`, sub:`${targetPts - currentPts} additional patients/wk × 4 wks × ${fmt(ltv)} LTV`, gold:true },
+            { label:"Total when at target", value: fmt(targetMonthly), sub:"your new monthly run rate", gold:true },
           ].map(item => (
             <div key={item.label} style={{ background: item.gold ? "rgba(184,150,46,0.08)" : "rgba(255,255,255,0.03)", border:`1px solid ${item.gold ? "rgba(184,150,46,0.25)" : "rgba(240,237,230,0.08)"}`, borderRadius:"10px", padding:"16px 18px" }}>
               <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color: item.gold ? "var(--gold-dark)" : "rgba(240,237,230,0.35)", marginBottom:"6px" }}>{item.label}</div>
@@ -534,6 +589,28 @@ export default function MapPage() {
           <div style={{ background:"var(--bg)", border:"1px solid var(--border)", borderTop:"none", borderRadius:"0 0 12px 12px", padding:"36px", boxShadow:"var(--shadow-sm)" }}>
             <PhasePanel phase={PHASES[activePhase]} />
           </div>
+
+          {/* Questions block */}
+          <div style={{ marginTop:"24px", background:"var(--bg-alt)", border:"1px solid var(--border)", borderRadius:"12px", padding:"28px 32px" }}>
+            <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"16px" }}>
+              Questions we&apos;ll need answered before we start
+            </div>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px" }}>
+              {[
+                "Do you have an existing patient email list? How many contacts?",
+                "How often do you reach out to your list? What's your average open rate and click rate?",
+                "What offers or promotions have you run in the past that got a strong response?",
+                "Do you have Google Search Console, Google Analytics, Meta Business, and Meta Ads accounts set up?",
+                "Is the Meta Pixel installed on your website? Is any tracking currently in place?",
+                "Do you have a receptionist or team member who can respond to new signups within 5 minutes? (Studies show this increases conversion by 1,000%+)",
+              ].map((q, i) => (
+                <div key={i} style={{ display:"flex", gap:"12px", padding:"12px 14px", background:"var(--bg)", border:"1px solid var(--border)", borderRadius:"8px" }}>
+                  <div style={{ width:"20px", height:"20px", borderRadius:"50%", background:"rgba(184,150,46,0.12)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, fontSize:"0.65rem", fontWeight:500, color:"var(--gold)" }}>{i + 1}</div>
+                  <div style={{ fontSize:"0.8rem", color:"var(--text)", lineHeight:1.6 }}>{q}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -690,11 +767,10 @@ export default function MapPage() {
               <div style={{ fontFamily:"var(--font-display)", fontSize:"1.5rem", fontWeight:300, color:"var(--text)", lineHeight:1.2, marginTop:"8px" }}>Money-Back Guarantee</div>
             </div>
             <div>
-              <p style={{ fontSize:"1rem", fontWeight:300, color:"var(--text)", lineHeight:1.8, marginBottom:"24px" }}>
+              <p style={{ fontSize:"1rem", fontWeight:300, color:"var(--gold)", lineHeight:1.8, marginBottom:"24px" }}>
                 One commitment. Unconditional.
               </p>
               <div style={{ background:"var(--bg-alt)", border:"1px solid var(--border)", borderRadius:"10px", padding:"20px 22px" }}>
-                <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"8px" }}>Quality of work</div>
                 <p style={{ fontSize:"0.95rem", fontWeight:300, color:"var(--text)", lineHeight:1.75 }}>
                   If you&apos;re not happy with our work for any reason, give us one month to address your concern. If we can&apos;t turn things around in that month, we refund you for that month. No questions asked. No cancellation fees.
                 </p>
