@@ -21,7 +21,6 @@ const ICA = {
     "Daughter dealing with acne, menstrual cramping, or hormonal issues",
     "Already tried conventional medicine — disappointed by the results",
     "Resistant to birth control pills or Accutane for her child",
-    "Family healthcare decision-maker — husband defers to her",
     "Once she sees results, she brings in the whole family",
   ],
 };
