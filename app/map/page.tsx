@@ -333,7 +333,7 @@ export default function MapPage() {
             Reach your target in <em style={{ fontStyle:"italic", color:"var(--gold)" }}>six months</em>
           </h2>
           <p style={{ fontSize:"1rem", color:"var(--muted)", maxWidth:"560px", marginBottom:"56px", lineHeight:1.75 }}>
-            From 8 new patients per week to 14 — your stated target — by September 1st, 2026. Built on infrastructure that keeps compounding after we get there.
+            From 8 new patients per week to 14 — by September 1st, 2026. Built on infrastructure that keeps compounding after we get there.
           </p>
           <div style={{ background:"var(--bg-alt)", border:"1px solid var(--border)", borderRadius:"16px", padding:"48px 40px", boxShadow:"var(--shadow-sm)", marginBottom:"28px" }}>
             <div style={{ display:"grid", gridTemplateColumns:"1fr auto 1fr", alignItems:"center", gap:"24px", marginBottom:"32px" }}>
@@ -370,6 +370,9 @@ export default function MapPage() {
           </div>
           <div style={{ background:"var(--forest-light)", borderLeft:"3px solid var(--forest-mid)", borderRadius:"0 8px 8px 0", padding:"16px 20px", fontSize:"0.875rem", color:"var(--forest)", lineHeight:1.65 }}>
             <strong style={{ fontWeight:500 }}>Two things being built simultaneously:</strong> A paid digital pipeline that attracts new patients predictably — and a referral system that operationalizes word-of-mouth so you never have to ask manually again. Both start in Month 1.
+          </div>
+          <div style={{ marginTop:"32px" }}>
+            <TwoSystemsDiagram idPrefix="goal" />
           </div>
         </div>
       </section>
@@ -537,9 +540,12 @@ export default function MapPage() {
           <h2 style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,3.5vw,2.8rem)", fontWeight:300, lineHeight:1.2, letterSpacing:"-0.01em", marginBottom:"16px" }}>
             Four phases. <em style={{ fontStyle:"italic", color:"var(--gold)" }}>One compounding system.</em>
           </h2>
-          <p style={{ fontSize:"1rem", color:"var(--muted)", maxWidth:"560px", marginBottom:"48px", lineHeight:1.75 }}>
+          <p style={{ fontSize:"1rem", color:"var(--muted)", maxWidth:"560px", marginBottom:"32px", lineHeight:1.75 }}>
             Click any phase to see exactly what happens, why, and what you&apos;ll have at the end of it. Nothing is skipped. Every step exists for a reason.
           </p>
+          <div style={{ marginBottom:"40px" }}>
+            <TwoSystemsDiagram idPrefix="plan" />
+          </div>
 
           {/* Horizontal timeline */}
           <div style={{ display:"grid", gridTemplateColumns:"1fr auto 1fr auto 1fr auto 1fr", alignItems:"center", marginBottom:"32px", gap:"0" }}>
@@ -674,7 +680,7 @@ export default function MapPage() {
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", flexWrap:"wrap", gap:"20px", marginBottom:"28px" }}>
               <div>
                 <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold-dark)", marginBottom:"10px" }}>Full-service growth partnership</div>
-                <div style={{ fontFamily:"var(--font-display)", fontSize:"1.6rem", fontWeight:300, color:"var(--bg)", lineHeight:1.2, marginBottom:"8px" }}>Patient Acquisition Infrastructure</div>
+                <div style={{ fontFamily:"var(--font-display)", fontSize:"1.6rem", fontWeight:300, color:"var(--bg)", lineHeight:1.2, marginBottom:"8px" }}>The Growth Engine</div>
                 <div style={{ fontSize:"0.875rem", color:"rgba(240,237,230,0.50)", maxWidth:"400px", lineHeight:1.55 }}>ICA development, referral system, Meta ad infrastructure, creative testing, lead generation, email automation, optimization, and reporting.</div>
               </div>
               <div style={{ textAlign:"right", flexShrink:0 }}>
@@ -1082,6 +1088,71 @@ function PhasePanel({ phase }: { phase: typeof PHASES[0] }) {
   );
 }
 
+
+function TwoSystemsDiagram({ idPrefix = "diag" }: { idPrefix?: string }) {
+  const b = `${idPrefix}-ab`;
+  const g = `${idPrefix}-ag`;
+  const m = `${idPrefix}-am`;
+  return (
+    <svg width="100%" viewBox="0 0 860 412" aria-label="Two systems: paid pipeline and referral system converging to 14 new patients per week">
+      <defs>
+        <marker id={b} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#4A7A9B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </marker>
+        <marker id={g} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#B8962E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </marker>
+        <marker id={m} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#8A8780" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </marker>
+      </defs>
+
+      {/* LEFT: Paid Pipeline */}
+      <rect x="40" y="20" width="340" height="60" rx="8" fill="#EEF3F8" stroke="#4A7A9B" strokeWidth="1"/>
+      <text x="210" y="42" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="14" fontWeight="500" fill="#2C4A62">Paid pipeline</text>
+      <text x="210" y="62" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="12" fontWeight="400" fill="#4A7A9B">Meta ads · months 2–6</text>
+
+      <line x1="210" y1="80" x2="210" y2="100" stroke="#4A7A9B" strokeWidth="1.5" markerEnd={`url(#${b})`}/>
+      <rect x="40" y="102" width="340" height="44" rx="8" fill="#F5F8FB" stroke="#4A7A9B" strokeWidth="0.75" strokeOpacity="0.6"/>
+      <text x="210" y="124" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="13" fontWeight="400" fill="#2C4A62">Targeted Meta audience</text>
+
+      <line x1="210" y1="146" x2="210" y2="166" stroke="#4A7A9B" strokeWidth="1.5" markerEnd={`url(#${b})`}/>
+      <rect x="40" y="168" width="340" height="44" rx="8" fill="#F5F8FB" stroke="#4A7A9B" strokeWidth="0.75" strokeOpacity="0.6"/>
+      <text x="210" y="190" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="13" fontWeight="400" fill="#2C4A62">Lead form + nurture sequence</text>
+
+      <line x1="210" y1="212" x2="210" y2="232" stroke="#4A7A9B" strokeWidth="1.5" markerEnd={`url(#${b})`}/>
+      <rect x="40" y="234" width="340" height="44" rx="8" fill="#F5F8FB" stroke="#4A7A9B" strokeWidth="0.75" strokeOpacity="0.6"/>
+      <text x="210" y="256" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="13" fontWeight="400" fill="#2C4A62">Discovery call booked</text>
+
+      {/* RIGHT: Referral System */}
+      <rect x="480" y="20" width="340" height="60" rx="8" fill="#FBF5E4" stroke="#B8962E" strokeWidth="1"/>
+      <text x="650" y="42" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="14" fontWeight="500" fill="#7A6010">Referral system</text>
+      <text x="650" y="62" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="12" fontWeight="400" fill="#B8962E">early revenue · starts Month 2</text>
+
+      <line x1="650" y1="80" x2="650" y2="100" stroke="#B8962E" strokeWidth="1.5" markerEnd={`url(#${g})`}/>
+      <rect x="480" y="102" width="340" height="44" rx="8" fill="#FDF8EE" stroke="#B8962E" strokeWidth="0.75" strokeOpacity="0.6"/>
+      <text x="650" y="124" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="13" fontWeight="400" fill="#7A6010">Existing patient list</text>
+
+      <line x1="650" y1="146" x2="650" y2="166" stroke="#B8962E" strokeWidth="1.5" markerEnd={`url(#${g})`}/>
+      <rect x="480" y="168" width="340" height="44" rx="8" fill="#FDF8EE" stroke="#B8962E" strokeWidth="0.75" strokeOpacity="0.6"/>
+      <text x="650" y="190" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="13" fontWeight="400" fill="#7A6010">Email outreach + raffle</text>
+
+      <line x1="650" y1="212" x2="650" y2="232" stroke="#B8962E" strokeWidth="1.5" markerEnd={`url(#${g})`}/>
+      <rect x="480" y="234" width="340" height="44" rx="8" fill="#FDF8EE" stroke="#B8962E" strokeWidth="0.75" strokeOpacity="0.6"/>
+      <text x="650" y="256" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="13" fontWeight="400" fill="#7A6010">Referred patient booked</text>
+
+      {/* Converging arrows */}
+      <path d="M 210,278 C 210,314 428,310 428,318" fill="none" stroke="#8A8780" strokeWidth="1.5" markerEnd={`url(#${m})`}/>
+      <path d="M 650,278 C 650,314 432,310 432,318" fill="none" stroke="#8A8780" strokeWidth="1.5" markerEnd={`url(#${m})`}/>
+
+      {/* OUTCOME */}
+      <rect x="180" y="320" width="500" height="60" rx="8" fill="#E8F2EE" stroke="#3D6B5C" strokeWidth="1"/>
+      <text x="430" y="342" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="15" fontWeight="500" fill="#2C4A3E">14 new patients / week</text>
+      <text x="430" y="364" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="12" fontWeight="400" fill="#3D6B5C">September 2026 · the goal</text>
+    </svg>
+  );
+}
+
 function EyebrowLabel({ children, light }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div style={{ fontSize:"0.75rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color:light?"var(--gold-dark)":"var(--gold)", marginBottom:"16px", display:"flex", alignItems:"center", gap:"10px" }}>
@@ -1090,3 +1161,4 @@ function EyebrowLabel({ children, light }: { children: React.ReactNode; light?: 
     </div>
   );
 }
+
