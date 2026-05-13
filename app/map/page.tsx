@@ -89,7 +89,7 @@ const PHASES = [
 /* ─── CALCULATOR ─── */
 function ROICalculator() {
   const [currentPts, setCurrentPts] = useState(8);
-  const [targetPts, setTargetPts] = useState(16);
+  const [targetPts, setTargetPts] = useState(14);
   const [ltv, setLtv] = useState(350);
 
   const retainer = 2000;
@@ -243,14 +243,14 @@ export default function MapPage() {
         <div style={{ maxWidth:"860px", margin:"0 auto", width:"100%", position:"relative", zIndex:1 }}>
           <EyebrowLabel light>Prepared exclusively for Hermeet Suri</EyebrowLabel>
           <h1 style={{ fontFamily:"var(--font-display)", fontSize:"clamp(3.2rem,5.5vw,5rem)", fontWeight:300, lineHeight:1.1, letterSpacing:"-0.01em", color:"var(--bg)", marginBottom:"24px", maxWidth:"800px" }}>
-            From 8 to 16 patients per week.{" "}
+            From 8 to 14 patients per week.{" "}
             <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>Here&apos;s how.</em>
           </h1>
           <p style={{ fontSize:"1.125rem", fontWeight:300, color:"rgba(240,237,230,0.70)", maxWidth:"520px", marginBottom:"56px", lineHeight:1.75 }}>
-            A structured plan that doubles Homeopathic Plus Centre&apos;s patient intake in six months — through precision targeting, not guesswork.
+            A structured plan to hit Homeopathic Plus Centre&apos;s 14 patients/week target in six months — through precision targeting, not guesswork.
           </p>
           <div style={{ display:"flex", gap:"40px", flexWrap:"wrap", marginBottom:"64px" }}>
-            {[["8 → 16","patients / week"],["6 months","to double the practice"],["Sept 1, 2026","target date"]].map(([n, label], i, arr) => (
+            {[["8 → 14","patients / week"],["6 months","to reach your target"],["Sept 1, 2026","target date"]].map(([n, label], i, arr) => (
               <div key={n} style={{ display:"flex", gap:"40px", alignItems:"center" }}>
                 <div>
                   <div style={{ fontFamily:"var(--font-display)", fontSize:"2rem", fontWeight:300, color:"var(--gold-dark)", lineHeight:1 }}>{n}</div>
@@ -275,10 +275,10 @@ export default function MapPage() {
         <div style={{ maxWidth:"860px", margin:"0 auto", width:"100%" }}>
           <EyebrowLabel>The goal</EyebrowLabel>
           <h2 style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,3.5vw,2.8rem)", fontWeight:300, lineHeight:1.2, letterSpacing:"-0.01em", marginBottom:"20px" }}>
-            Double your practice in <em style={{ fontStyle:"italic", color:"var(--gold)" }}>six months</em>
+            Reach your target in <em style={{ fontStyle:"italic", color:"var(--gold)" }}>six months</em>
           </h2>
           <p style={{ fontSize:"1rem", color:"var(--muted)", maxWidth:"560px", marginBottom:"56px", lineHeight:1.75 }}>
-            From 8 new patients per week to 16 — by September 1st, 2026. That&apos;s a doubling of your business, built on infrastructure that keeps compounding after we hit it.
+            From 8 new patients per week to 14 — your stated target — by September 1st, 2026. Built on infrastructure that keeps compounding after we get there.
           </p>
           <div style={{ background:"var(--bg-alt)", border:"1px solid var(--border)", borderRadius:"16px", padding:"48px 40px", boxShadow:"var(--shadow-sm)", marginBottom:"28px" }}>
             <div style={{ display:"grid", gridTemplateColumns:"1fr auto 1fr", alignItems:"center", gap:"24px", marginBottom:"32px" }}>
@@ -296,7 +296,7 @@ export default function MapPage() {
               </div>
               <div style={{ textAlign:"center" }}>
                 <div style={{ fontSize:"0.75rem", fontWeight:400, letterSpacing:"0.08em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"12px" }}>Where we&apos;re going</div>
-                <div style={{ fontFamily:"var(--font-display)", fontSize:"clamp(4rem,8vw,6rem)", fontWeight:300, color:"var(--gold)", lineHeight:1 }}>16</div>
+                <div style={{ fontFamily:"var(--font-display)", fontSize:"clamp(4rem,8vw,6rem)", fontWeight:300, color:"var(--gold)", lineHeight:1 }}>14</div>
                 <div style={{ fontSize:"0.875rem", color:"var(--muted)", marginTop:"8px" }}>new patients / week · by Sept 1, 2026</div>
               </div>
             </div>
@@ -308,8 +308,8 @@ export default function MapPage() {
               </div>
               <div>
                 <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.08em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"6px" }}>Target new patient revenue / mo</div>
-                <div style={{ fontFamily:"var(--font-display)", fontSize:"1.5rem", fontWeight:300, color:"var(--gold)" }}>~$12,800</div>
-                <div style={{ fontSize:"0.8rem", color:"var(--muted)" }}>64 patients × $200 first session</div>
+                <div style={{ fontFamily:"var(--font-display)", fontSize:"1.5rem", fontWeight:300, color:"var(--gold)" }}>~$11,200</div>
+                <div style={{ fontSize:"0.8rem", color:"var(--muted)" }}>56 patients × $200 first session</div>
               </div>
             </div>
           </div>
@@ -707,7 +707,7 @@ export default function MapPage() {
       {/* ── FINAL SLIDE ── */}
       <section className="fade-up" style={{ background:"var(--forest)", padding:"96px 40px", minHeight:"100vh", display:"flex", alignItems:"center" }}>
         <div style={{ maxWidth:"860px", margin:"0 auto", width:"100%" }}>
-          <EyebrowLabel light>Ready to double your practice?</EyebrowLabel>
+          <EyebrowLabel light>Ready to hit 14 patients per week?</EyebrowLabel>
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"20px", marginBottom:"48px" }}>
             <div style={{ border:"1.5px solid var(--gold-dark)", borderRadius:"16px", padding:"28px", background:"rgba(184,150,46,0.06)" }}>
               <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold-dark)", marginBottom:"10px" }}>Your investment</div>
@@ -755,8 +755,8 @@ export default function MapPage() {
 
 function FunnelProjections() {
   const [budget, setBudget] = useState(1500);
-  const [cpc, setCpc] = useState(1.0);
-  const [signupRate, setSignupRate] = useState(20);
+  const [cpc, setCpc] = useState(0.75);
+  const [signupRate, setSignupRate] = useState(11);
   const [bookingRate, setBookingRate] = useState(20);
   const [showRate, setShowRate] = useState(60);
   const [closeRate, setCloseRate] = useState(70);
@@ -791,7 +791,7 @@ function FunnelProjections() {
     {
       id:"signups", label:"Signups", color:"var(--forest-mid)",
       inputs:[
-        { label:"Sign-up rate", value:signupRate, min:5, max:70, step:5, set:setSignupRate, fmt:(v:number)=>`${v}%` },
+        { label:"Sign-up rate", value:signupRate, min:5, max:15, step:1, set:setSignupRate, fmt:(v:number)=>`${v}%` },
       ],
       outputs:[
         { label:"Leads/mo", value:signups.toString(), big:true },
