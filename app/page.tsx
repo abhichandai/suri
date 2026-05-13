@@ -752,7 +752,13 @@ export default function MapPage() {
               ))}
             </div>
           </div>
-          <div style={{ textAlign:"center", marginTop:"32px" }}>
+          <div style={{ textAlign:"center", marginTop:"72px", paddingTop:"48px", borderTop:"1px solid rgba(240,237,230,0.08)" }}>
+            <h2 style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.4rem,4vw,3.4rem)", fontWeight:300, color:"var(--bg)", lineHeight:1.1, letterSpacing:"-0.01em", marginBottom:"12px" }}>
+              Ready to <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>start?</em>
+            </h2>
+            <p style={{ fontSize:"0.95rem", color:"rgba(240,237,230,0.50)", marginBottom:"36px", lineHeight:1.6 }}>
+              Six months to build the system. A pipeline that keeps working after we&apos;re done.
+            </p>
             <a href="https://buy.stripe.com/3cI7sL86C7GZ7ga0Jf5gc00"
               target="_blank" rel="noopener noreferrer"
               style={{ display:"inline-block", background:"var(--gold)", color:"var(--forest)", fontFamily:"var(--font-ui)", fontSize:"0.95rem", fontWeight:500, letterSpacing:"0.04em", padding:"18px 64px", borderRadius:"8px", textDecoration:"none", boxShadow:"var(--gold-glow)", transition:"all 0.2s ease" }}
