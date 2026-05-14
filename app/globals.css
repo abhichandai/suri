@@ -40,3 +40,32 @@ body {
   transition: opacity 0.65s ease, transform 0.65s ease;
 }
 .fade-up.visible { opacity: 1; transform: none; }
+
+/* ── Mobile responsive ── */
+@media (max-width: 640px) {
+  /* Hide the top dot-and-arrow timeline — tab bar handles it */
+  .phase-timeline { display: none !important; }
+
+  /* Phase tab bar: horizontal scroll instead of 4 squashed columns */
+  .phase-tabs {
+    display: flex !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0;
+    border-radius: 12px 12px 0 0;
+  }
+  .phase-tabs::-webkit-scrollbar { display: none; }
+  .phase-tabs > button {
+    flex: 0 0 auto;
+    min-width: 150px;
+  }
+
+  /* Questions: single column on mobile */
+  .questions-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Plan section padding */
+  .plan-section { padding: 72px 20px !important; }
+}
