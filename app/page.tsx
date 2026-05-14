@@ -553,7 +553,7 @@ export default function MapPage() {
           </div>
 
           {/* Horizontal timeline */}
-          <div style={{ display:"grid", gridTemplateColumns:"1fr auto 1fr auto 1fr auto 1fr", alignItems:"center", marginBottom:"32px", gap:"0" }}>
+          <div className="phase-timeline" style={{ display:"grid", gridTemplateColumns:"1fr auto 1fr auto 1fr auto 1fr", alignItems:"center", marginBottom:"32px", gap:"0" }}>
             {PHASES.map((phase, i) => (
               <>
                 <button key={phase.month} onClick={() => setActivePhase(i)} style={{
@@ -580,7 +580,7 @@ export default function MapPage() {
           </div>
 
           {/* Tab bar */}
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", background:"var(--bg)", border:"1px solid var(--border)", borderRadius:"12px 12px 0 0", overflow:"hidden" }}>
+          <div className="phase-tabs" style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", background:"var(--bg)", border:"1px solid var(--border)", borderRadius:"12px 12px 0 0", overflow:"hidden" }}>
             {PHASES.map((phase, i) => (
               <button key={i} onClick={() => setActivePhase(i)} style={{
                 padding:"16px", border:"none",
@@ -606,7 +606,7 @@ export default function MapPage() {
             <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"16px" }}>
               Questions we&apos;ll need answered before we start
             </div>
-            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px" }}>
+            <div className="questions-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px" }}>
               {[
                 "Do you have an existing patient email list? How many contacts?",
                 "How often do you reach out to your list? What's your average open rate and click rate?",
