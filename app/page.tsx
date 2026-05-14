@@ -176,7 +176,7 @@ function ROICalculator() {
       <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold-dark)", marginBottom:"20px" }}>
         Return on investment calculator
       </div>
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"32px" }}>
+      <div className="roi-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"32px" }}>
         {/* Sliders */}
         <div>
           <div style={{ marginBottom:"20px" }}>
@@ -372,7 +372,7 @@ export default function MapPage() {
 
       {/* ── THREE STEPS ── */}
       <section style={{ minHeight:"120vh", background:"#0E0D0C", display:"flex", alignItems:"center", justifyContent:"center", padding:"40px" }}>
-        <p style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,4vw,4rem)", fontWeight:300, lineHeight:1.1, letterSpacing:"-0.01em", color:"var(--bg)", whiteSpace:"nowrap" }}>
+        <p className="attract-headline" style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,4vw,4rem)", fontWeight:300, lineHeight:1.1, letterSpacing:"-0.01em", color:"var(--bg)", whiteSpace:"nowrap" }}>
           3 steps to <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>get there.</em>
         </p>
       </section>
@@ -439,7 +439,7 @@ export default function MapPage() {
               We ran a full keyword analysis across Toronto + Mississauga. Total search volume across every relevant keyword: <strong style={{ color:"var(--text)" }}>~620 searches per month.</strong> Even capturing 100% at a 3% conversion rate gives roughly 18 leads per month — not enough to build a predictable pipeline.
             </p>
             <div style={{ background:"var(--bg)", border:"1px solid var(--border)", borderRadius:"12px", overflow:"hidden", boxShadow:"var(--shadow-sm)", marginBottom:"12px" }}>
-              <div style={{ display:"grid", gridTemplateColumns:"1fr 80px 80px 80px", padding:"10px 20px", borderBottom:"1px solid var(--border)", background:"var(--bg-alt)" }}>
+              <div className="keywords-grid" style={{ display:"grid", gridTemplateColumns:"1fr 80px 80px 80px", padding:"10px 20px", borderBottom:"1px solid var(--border)", background:"var(--bg-alt)" }}>
                 {["Keyword","Monthly","Trend","Comp."].map(h => (
                   <div key={h} style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--muted)" }}>{h}</div>
                 ))}
@@ -495,7 +495,7 @@ export default function MapPage() {
               ))}
             </div>
             <div style={{ background:"var(--bg)", border:"1px solid var(--border)", borderTop:"none", borderRadius:"0 0 12px 12px", padding:"28px", boxShadow:"var(--shadow-sm)" }}>
-              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"24px" }}>
+              <div className="audience-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"24px" }}>
                 <div>
                   <div style={{ fontSize:"0.65rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--muted)", marginBottom:"10px" }}>Audience parameters</div>
                   {AUDIENCES[activeAudience].details.map(d => (
@@ -788,7 +788,7 @@ export default function MapPage() {
       <section className="fade-up" style={{ minHeight:"120vh", background:"var(--bg)", display:"flex", alignItems:"center", padding:"96px 40px" }}>
         <div style={{ maxWidth:"860px", margin:"0 auto" }}>
           <EyebrowLabel>Our guarantee</EyebrowLabel>
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 2fr", gap:"48px", alignItems:"center" }}>
+          <div className="guarantee-grid" style={{ display:"grid", gridTemplateColumns:"1fr 2fr", gap:"48px", alignItems:"center" }}>
             <div>
               <div style={{ fontFamily:"var(--font-display)", fontSize:"clamp(3rem,5vw,5rem)", fontWeight:300, color:"var(--gold)", lineHeight:1 }}>360°</div>
               <div style={{ fontFamily:"var(--font-display)", fontSize:"1.5rem", fontWeight:300, color:"var(--text)", lineHeight:1.2, marginTop:"8px" }}>Money-Back Guarantee</div>
@@ -817,7 +817,7 @@ export default function MapPage() {
             Six months to build the system. A pipeline that keeps working after we&apos;re done.
           </p>
           <EyebrowLabel light>Ready to hit 14 patients per week?</EyebrowLabel>
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"20px", marginBottom:"48px" }}>
+          <div className="investment-cards" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"20px", marginBottom:"48px" }}>
             <div style={{ border:"1.5px solid var(--gold-dark)", borderRadius:"16px", padding:"28px", background:"rgba(184,150,46,0.06)" }}>
               <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold-dark)", marginBottom:"10px" }}>Your investment</div>
               <div style={{ fontFamily:"var(--font-display)", fontSize:"2.8rem", fontWeight:300, color:"var(--gold-dark)", lineHeight:1, marginBottom:"4px" }}>$2,000</div>
@@ -1053,7 +1053,7 @@ function FunnelProjections() {
       </div>
 
       {/* Summary bar */}
-      <div style={{ marginTop:"16px", display:"grid", gridTemplateColumns:"1fr 1fr 1fr 1fr", gap:"12px" }}>
+      <div className="funnel-summary-grid" style={{ marginTop:"16px", display:"grid", gridTemplateColumns:"1fr 1fr 1fr 1fr", gap:"12px" }}>
         {[
           { label:"Total new patients / mo", value:grandTotalPatients.toString(), gold:false },
           { label:"Total revenue / mo", value:fmt$(totalRevenue), gold:true },
