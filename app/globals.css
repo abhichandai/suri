@@ -69,3 +69,48 @@ body {
   /* Plan section padding */
   .plan-section { padding: 72px 20px !important; }
 }
+
+/* ── Additional mobile fixes ── */
+@media (max-width: 640px) {
+  /* Funnel summary: 4 cards → 2×2 grid */
+  .funnel-summary-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Investment + guarantee cards: side-by-side → stacked */
+  .investment-cards {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ROI calculator: sliders + outputs → stacked */
+  .roi-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Audience details: parameters + image → stacked */
+  .audience-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* "How do we attract them" — allow wrapping */
+  .attract-headline {
+    white-space: normal !important;
+    font-size: clamp(2rem, 8vw, 3rem) !important;
+  }
+
+  /* Guarantee section: icon + text → stacked */
+  .guarantee-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Keywords table: shrink fixed columns */
+  .keywords-grid {
+    grid-template-columns: 1fr 50px 50px 60px !important;
+    font-size: 0.7rem !important;
+  }
+
+  /* Section padding tighter on mobile */
+  .mobile-pad {
+    padding: 64px 20px !important;
+  }
+}
