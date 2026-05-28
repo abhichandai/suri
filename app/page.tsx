@@ -80,7 +80,7 @@ const PHASES = [
     purpose: "ICA interviews with existing patients provide the source material. Combined with our proprietary data-driven testing methodology, this shapes every offer and creative going forward. The referral system goes live.",
     activities: [
       "ICA Interviews — 3-5 conversations with existing patients to capture language, pain points, and desires",
-      "Referral system goes live: initial outreach to existing patient email list (raffle, Google review ask, referral incentive) — Abhi manages the send",
+      "Review &amp; referral request system goes live: initial outreach to existing patient email list (Google review ask + un-incentivized referral ask) — Abhi manages the send",
       "Evergreen referral automation built and connected — vcita appointment complete → MailerLite referral flow triggers automatically for every patient, permanently",
       "ICA document developed from interviews + proprietary data-driven testing methodology",
       "2-3 offer hypotheses developed",
@@ -726,7 +726,7 @@ export default function MapPage() {
             </div>
             <div style={{ height:"1px", background:"rgba(240,237,230,0.10)", marginBottom:"20px" }} />
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px" }}>
-              {["ICA interviews + profile development","Referral system (email, raffle, review ask)","Meta Pixel + Conversion API setup","Audience builds (Cold + LLA)","Multiple creative testing rounds","Lead Ads campaigns + optimization","MailerLite setup + follow-up sequences","Monthly reporting + weekly data review","90-day check-in with full performance review","Landing page for confirmed winning offer"].map(f => (
+              {["ICA interviews + profile development","Review &amp; referral request system (email, review ask, referral ask)","Meta Pixel + Conversion API setup","Audience builds (Cold + LLA)","Multiple creative testing rounds","Lead Ads campaigns + optimization","MailerLite setup + follow-up sequences","Monthly reporting + weekly data review","90-day check-in with full performance review","Landing page for confirmed winning offer"].map(f => (
                 <div key={f} style={{ display:"flex", gap:"10px", fontSize:"0.8rem", color:"rgba(240,237,230,0.65)", lineHeight:1.4 }}>
                   <span style={{ color:"var(--gold-dark)", flexShrink:0 }}>✓</span>{f}
                 </div>
@@ -1184,7 +1184,7 @@ function TwoSystemsDiagram({ idPrefix = "diag" }: { idPrefix?: string }) {
 
       {/* RIGHT: Referral System */}
       <rect x="480" y="20" width="340" height="60" rx="8" fill="#FBF5E4" stroke="#B8962E" strokeWidth="1"/>
-      <text x="650" y="42" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="14" fontWeight="500" fill="#7A6010">Referral system</text>
+      <text x="650" y="42" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="14" fontWeight="500" fill="#7A6010">Review &amp; referral</text>
       <text x="650" y="62" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="12" fontWeight="400" fill="#B8962E">early revenue · starts Month 2</text>
 
       <line x1="650" y1="80" x2="650" y2="100" stroke="#B8962E" strokeWidth="1.5" markerEnd={`url(#${g})`}/>
@@ -1193,7 +1193,7 @@ function TwoSystemsDiagram({ idPrefix = "diag" }: { idPrefix?: string }) {
 
       <line x1="650" y1="146" x2="650" y2="166" stroke="#B8962E" strokeWidth="1.5" markerEnd={`url(#${g})`}/>
       <rect x="480" y="168" width="340" height="44" rx="8" fill="#FDF8EE" stroke="#B8962E" strokeWidth="0.75" strokeOpacity="0.6"/>
-      <text x="650" y="190" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="13" fontWeight="400" fill="#7A6010">Email outreach + raffle</text>
+      <text x="650" y="190" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="13" fontWeight="400" fill="#7A6010">Email outreach + review ask</text>
 
       <line x1="650" y1="212" x2="650" y2="232" stroke="#B8962E" strokeWidth="1.5" markerEnd={`url(#${g})`}/>
       <rect x="480" y="234" width="340" height="44" rx="8" fill="#FDF8EE" stroke="#B8962E" strokeWidth="0.75" strokeOpacity="0.6"/>
