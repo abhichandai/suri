@@ -103,7 +103,7 @@ const PHASES = [
       "Creative testing rounds — multiple rounds of image/video ads to identify what captures the target audience's attention",
       "Offer testing rounds — test which offers resonate (guide download, discovery call, free resource, discount CTA, etc.)",
       "Lead Ads testing rounds — winning creatives + winning offers combined to find which combination produces the most signups on native Meta lead forms",
-      "Lead magnet designed and packaged after winning offer confirmed from test data — Suri writes the content, Abhi packages it as PDF (video editing available upon request)",
+      "Lead magnet designed and packaged after winning offer confirmed from test data — Suri writes the content, Abhi packages it as PDF (video editing available upon request). See CHO-compliant lead magnet examples below.",
       "Lead magnet includes 'try this at home' section + discovery call CTA with 10% off first session code",
       "Guide delivery via Meta TY screen link → ViewContent pixel event → LLA pool building",
       "MailerLite follow-up sequence active: guide delivery + discovery call nudges",
@@ -325,9 +325,9 @@ export default function MapPage() {
       </section>
 
       {/* ── REGULATORY ACKNOWLEDGMENT ── */}
-      <section className="fade-up" style={{ minHeight:"100vh", background:"var(--forest)", display:"flex", alignItems:"center", padding:"96px 40px", position:"relative", overflow:"hidden" }}>
+      <section className="fade-up" style={{ minHeight:"100vh", background:"#14110D", display:"flex", alignItems:"center", padding:"96px 40px", position:"relative", overflow:"hidden" }}>
         <div style={{ position:"absolute", top:"-100px", left:"-120px", width:"420px", height:"420px", borderRadius:"50%", border:"1px solid rgba(184,150,46,0.08)", pointerEvents:"none" }} />
-        <div style={{ maxWidth:"860px", margin:"0 auto", width:"100%", position:"relative", zIndex:1 }}>
+        <div style={{ maxWidth:"1040px", margin:"0 auto", width:"100%", position:"relative", zIndex:1 }}>
           <EyebrowLabel light>Before we begin</EyebrowLabel>
           <h2 style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,3.5vw,2.8rem)", fontWeight:300, lineHeight:1.2, letterSpacing:"-0.01em", color:"var(--bg)", marginBottom:"20px" }}>
             Built for a <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>regulated</em> practice
@@ -335,7 +335,7 @@ export default function MapPage() {
           <p style={{ fontSize:"1rem", color:"rgba(240,237,230,0.70)", maxWidth:"600px", marginBottom:"48px", lineHeight:1.75 }}>
             You&apos;re a registered member of the College of Homeopaths of Ontario, in good standing. That shapes how we advertise — and it&apos;s exactly why this plan is built the way it is. Every ad, landing page, and lead magnet is designed to stay inside the College&apos;s advertising standard, Health Canada&apos;s rules, and Meta&apos;s health-category policy. It protects your registration and keeps the ads from getting rejected.
           </p>
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(240px, 1fr))", gap:"20px" }}>
+          <div className="ack-grid">
             {[
               ["No testimonials in advertising","CHO Standard 6 prohibits client testimonials in advertising — including on your own website. We never use reviews in ad creative or republish them on your site. We'll still help you ask patients for honest Google reviews; those live on Google, not in your ads."],
               ["No cure or disease claims","Ads speak to your approach and invite a conversation — never a promise to cure, treat, or prevent a condition. This keeps you onside with the College and Health Canada, and keeps Meta from rejecting the creative."],
@@ -630,6 +630,32 @@ export default function MapPage() {
           </div>
           <div style={{ background:"var(--bg)", border:"1px solid var(--border)", borderTop:"none", borderRadius:"0 0 12px 12px", padding:"36px", boxShadow:"var(--shadow-sm)" }}>
             <PhasePanel phase={PHASES[activePhase]} />
+          </div>
+
+          {/* Lead magnet examples */}
+          <div style={{ marginTop:"24px", background:"var(--bg-alt)", border:"1px solid var(--border)", borderRadius:"12px", padding:"28px 32px" }}>
+            <div style={{ fontSize:"0.7rem", fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"8px" }}>
+              CHO-Compliant Lead Magnet Examples to test
+            </div>
+            <p style={{ fontSize:"0.85rem", color:"var(--muted)", maxWidth:"640px", marginBottom:"20px", lineHeight:1.7 }}>
+              Each teaches a topic and invites a conversation — no cure claims, no testimonials, no &ldquo;you have a condition&rdquo; targeting. Every one funnels to Suri&apos;s complimentary 20-minute consult, where the real qualifying and closing happens. These are starting points we&apos;ll test, not a fixed list.
+            </p>
+            <div className="lm-grid">
+              {[
+                ["Free online workshop","&ldquo;A Natural Approach to Teen Skin &amp; Hormonal Health: What Every Parent Should Understand.&rdquo; An evergreen 30-min class that warms cold traffic fast and ends with the consult CTA. Best fit for Suri&apos;s storytelling and live-close strengths."],
+                ["The parent playbook (PDF)","&ldquo;The Natural-First Parent&apos;s Guide to Skin, Periods &amp; Hormones in the Teen Years.&rdquo; Root-cause education plus the questions to ask any practitioner. Cheap to produce, easy to A/B test headlines."],
+                ["Homeopath vs. Naturopath vs. GP","&ldquo;Who actually does what?&rdquo; Pure education that differentiates Suri sharply and is highly shareable. Works as a lead magnet and as ongoing reach content."],
+                ["Values-based quiz","&ldquo;Is a root-cause, natural approach right for your family?&rdquo; Built around values and readiness — not symptoms — which keeps it off Meta&apos;s health-attribute radar while capturing and segmenting emails."],
+                ["5-day mini-course","&ldquo;5 Days to Understanding Natural Hormonal Health.&rdquo; A short daily email/video drip that recycles Suri&apos;s existing content library into a nurturing sequence with a soft consult CTA each day."],
+                ["&ldquo;Choose your path&rdquo; guide","Conventional and natural options for teen skin and cycle health laid out side by side, calmly and without disparaging other care — the balanced framing Suri already uses with patients."],
+              ].map(([title, body]) => (
+                <div key={title} style={{ background:"var(--bg)", border:"1px solid var(--border)", borderRadius:"10px", padding:"20px 18px" }}>
+                  <div style={{ width:"24px", height:"2px", background:"var(--gold)", marginBottom:"12px" }} />
+                  <div style={{ fontFamily:"var(--font-display)", fontSize:"1.1rem", fontWeight:400, color:"var(--text)", marginBottom:"8px", lineHeight:1.25 }} dangerouslySetInnerHTML={{ __html: title }} />
+                  <div style={{ fontSize:"0.8rem", color:"var(--muted)", lineHeight:1.6 }} dangerouslySetInnerHTML={{ __html: body }} />
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Questions block */}

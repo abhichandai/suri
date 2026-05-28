@@ -114,3 +114,15 @@ body {
     padding: 64px 20px !important;
   }
 }
+
+/* ── Acknowledgment cards + lead-magnet examples grids ── */
+.ack-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.lm-grid  { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 900px) {
+  .ack-grid { grid-template-columns: 1fr 1fr; }
+  .lm-grid  { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .ack-grid { grid-template-columns: 1fr; }
+  .lm-grid  { grid-template-columns: 1fr; }
+}
