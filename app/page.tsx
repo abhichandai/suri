@@ -304,7 +304,7 @@ export default function MapPage() {
             A structured plan to hit Homeopathic Plus Centre&apos;s 14 patients/week target in six months — through precision targeting, not guesswork.
           </p>
           <div style={{ display:"flex", gap:"40px", flexWrap:"wrap", marginBottom:"64px" }}>
-            {[["8 → 14","patients / week"],["6 months","to reach your target"],["Sept 1, 2026","target date"]].map(([n, label], i, arr) => (
+            {[["8 → 14","patients / week"],["6 months","to reach your target"],["Dec 1, 2026","target date"]].map(([n, label], i, arr) => (
               <div key={n} style={{ display:"flex", gap:"40px", alignItems:"center" }}>
                 <div>
                   <div style={{ fontFamily:"var(--font-display)", fontSize:"2rem", fontWeight:300, color:"var(--gold-dark)", lineHeight:1 }}>{n}</div>
@@ -324,6 +324,37 @@ export default function MapPage() {
         </div>
       </section>
 
+      {/* ── REGULATORY ACKNOWLEDGMENT ── */}
+      <section className="fade-up" style={{ minHeight:"100vh", background:"var(--forest)", display:"flex", alignItems:"center", padding:"96px 40px", position:"relative", overflow:"hidden" }}>
+        <div style={{ position:"absolute", top:"-100px", left:"-120px", width:"420px", height:"420px", borderRadius:"50%", border:"1px solid rgba(184,150,46,0.08)", pointerEvents:"none" }} />
+        <div style={{ maxWidth:"860px", margin:"0 auto", width:"100%", position:"relative", zIndex:1 }}>
+          <EyebrowLabel light>Before we begin</EyebrowLabel>
+          <h2 style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.2rem,3.5vw,2.8rem)", fontWeight:300, lineHeight:1.2, letterSpacing:"-0.01em", color:"var(--bg)", marginBottom:"20px" }}>
+            Built for a <em style={{ fontStyle:"italic", color:"var(--gold-dark)" }}>regulated</em> practice
+          </h2>
+          <p style={{ fontSize:"1rem", color:"rgba(240,237,230,0.70)", maxWidth:"600px", marginBottom:"48px", lineHeight:1.75 }}>
+            You&apos;re a registered member of the College of Homeopaths of Ontario, in good standing. That shapes how we advertise — and it&apos;s exactly why this plan is built the way it is. Every ad, landing page, and lead magnet is designed to stay inside the College&apos;s advertising standard, Health Canada&apos;s rules, and Meta&apos;s health-category policy. It protects your registration and keeps the ads from getting rejected.
+          </p>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(240px, 1fr))", gap:"20px" }}>
+            {[
+              ["No testimonials in advertising","CHO Standard 6 prohibits client testimonials in advertising — including on your own website. We never use reviews in ad creative or republish them on your site. We'll still help you ask patients for honest Google reviews; those live on Google, not in your ads."],
+              ["No cure or disease claims","Ads speak to your approach and invite a conversation — never a promise to cure, treat, or prevent a condition. This keeps you onside with the College and Health Canada, and keeps Meta from rejecting the creative."],
+              ["No \u201Cyou have a condition\u201D copy","Meta's personal-attributes policy bans wording that implies it knows a viewer's health. Our messaging centers your method and philosophy, not the reader's diagnosis."],
+              ["Health-compliant tracking","Meta restricts health advertisers from sharing patient and conversion data. We optimize on top-of-funnel signals — content downloads, not booked-appointment health events — and set tracking up accordingly."],
+            ].map(([title, body]) => (
+              <div key={title} style={{ background:"rgba(240,237,230,0.04)", border:"1px solid rgba(240,237,230,0.10)", borderRadius:"14px", padding:"28px 24px" }}>
+                <div style={{ width:"28px", height:"2px", background:"var(--gold)", marginBottom:"16px" }} />
+                <div style={{ fontFamily:"var(--font-display)", fontSize:"1.25rem", fontWeight:400, color:"var(--bg)", marginBottom:"10px", lineHeight:1.25 }}>{title}</div>
+                <div style={{ fontSize:"0.875rem", color:"rgba(240,237,230,0.62)", lineHeight:1.65 }}>{body}</div>
+              </div>
+            ))}
+          </div>
+          <p style={{ fontSize:"0.9rem", color:"rgba(240,237,230,0.50)", marginTop:"36px", maxWidth:"620px", lineHeight:1.7, fontStyle:"italic" }}>
+            Net effect: ads that get approved, a site that protects your license, and a funnel that holds up if the College ever looks.
+          </p>
+        </div>
+      </section>
+
       {/* ── THE GOAL ── */}
       <section className="fade-up" style={{ minHeight:"120vh", background:"var(--bg)", display:"flex", alignItems:"center", padding:"96px 40px" }}>
         <div style={{ maxWidth:"860px", margin:"0 auto", width:"100%" }}>
@@ -332,7 +363,7 @@ export default function MapPage() {
             Reach your target in <em style={{ fontStyle:"italic", color:"var(--gold)" }}>six months</em>
           </h2>
           <p style={{ fontSize:"1rem", color:"var(--muted)", maxWidth:"560px", marginBottom:"56px", lineHeight:1.75 }}>
-            From 8 new patients per week to 14 — by September 1st, 2026. Built on infrastructure that keeps compounding after we get there.
+            From 8 new patients per week to 14 — starting June 1 and reaching target by December 1st, 2026. Built on infrastructure that keeps compounding after we get there.
           </p>
           <div style={{ background:"var(--bg-alt)", border:"1px solid var(--border)", borderRadius:"16px", padding:"48px 40px", boxShadow:"var(--shadow-sm)", marginBottom:"28px" }}>
             <div style={{ display:"grid", gridTemplateColumns:"1fr auto 1fr", alignItems:"center", gap:"24px", marginBottom:"32px" }}>
@@ -351,7 +382,7 @@ export default function MapPage() {
               <div style={{ textAlign:"center" }}>
                 <div style={{ fontSize:"0.75rem", fontWeight:400, letterSpacing:"0.08em", textTransform:"uppercase", color:"var(--gold)", marginBottom:"12px" }}>Where we&apos;re going</div>
                 <div style={{ fontFamily:"var(--font-display)", fontSize:"clamp(4rem,8vw,6rem)", fontWeight:300, color:"var(--gold)", lineHeight:1 }}>14</div>
-                <div style={{ fontSize:"0.875rem", color:"var(--muted)", marginTop:"8px" }}>new patients / week · by Sept 1, 2026</div>
+                <div style={{ fontSize:"0.875rem", color:"var(--muted)", marginTop:"8px" }}>new patients / week · by Dec 1, 2026</div>
               </div>
             </div>
             <div style={{ borderTop:"1px solid var(--border)", paddingTop:"24px", display:"grid", gridTemplateColumns:"1fr 1fr", gap:"20px" }}>
@@ -1175,7 +1206,7 @@ function TwoSystemsDiagram({ idPrefix = "diag" }: { idPrefix?: string }) {
       {/* OUTCOME */}
       <rect x="180" y="320" width="500" height="60" rx="8" fill="#E8F2EE" stroke="#3D6B5C" strokeWidth="1"/>
       <text x="430" y="342" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="15" fontWeight="500" fill="#2C4A3E">14 new patients / week</text>
-      <text x="430" y="364" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="12" fontWeight="400" fill="#3D6B5C">September 2026 · the goal</text>
+      <text x="430" y="364" textAnchor="middle" dominantBaseline="central" fontFamily="&apos;Outfit&apos;, system-ui, sans-serif" fontSize="12" fontWeight="400" fill="#3D6B5C">December 2026 · the goal</text>
     </svg>
   );
 }
