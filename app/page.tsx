@@ -80,7 +80,7 @@ const PHASES = [
     purpose: "ICA interviews with existing patients provide the source material. Combined with our proprietary data-driven testing methodology, this shapes every offer and creative going forward. The referral system goes live.",
     activities: [
       "ICA Interviews — 3-5 conversations with existing patients to capture language, pain points, and desires",
-      "Review &amp; referral request system goes live: initial outreach to existing patient email list (Google review ask + un-incentivized referral ask) — Abhi manages the send",
+      "Review & referral request system goes live: initial outreach to existing patient email list (Google review ask + un-incentivized referral ask) — Abhi manages the send",
       "Evergreen referral automation built and connected — vcita appointment complete → MailerLite referral flow triggers automatically for every patient, permanently",
       "ICA document developed from interviews + proprietary data-driven testing methodology",
       "2-3 offer hypotheses developed",
@@ -752,7 +752,7 @@ export default function MapPage() {
             </div>
             <div style={{ height:"1px", background:"rgba(240,237,230,0.10)", marginBottom:"20px" }} />
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px" }}>
-              {["ICA interviews + profile development","Review &amp; referral request system (email, review ask, referral ask)","Meta Pixel + Conversion API setup","Audience builds (Cold + LLA)","Multiple creative testing rounds","Lead Ads campaigns + optimization","MailerLite setup + follow-up sequences","Monthly reporting + weekly data review","90-day check-in with full performance review","Landing page for confirmed winning offer"].map(f => (
+              {["ICA interviews + profile development","Review & referral request system (email, review ask, referral ask)","Meta Pixel + Conversion API setup","Audience builds (Cold + LLA)","Multiple creative testing rounds","Lead Ads campaigns + optimization","MailerLite setup + follow-up sequences","Monthly reporting + weekly data review","90-day check-in with full performance review","Landing page for confirmed winning offer"].map(f => (
                 <div key={f} style={{ display:"flex", gap:"10px", fontSize:"0.8rem", color:"rgba(240,237,230,0.65)", lineHeight:1.4 }}>
                   <span style={{ color:"var(--gold-dark)", flexShrink:0 }}>✓</span>{f}
                 </div>
